@@ -1,0 +1,15 @@
+*.out*
+out-*
+*.zip
+.DS_Store
+metastore_db/
+*.swp
+*.log
+logs
+*.csv
+*.json
+*.data
+target
+*.out
+.ipynb_checkpoints
+__pycache__
