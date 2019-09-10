@@ -2,7 +2,7 @@
 <html>
 <head><meta charset="utf-8" />
 
-<title>hello-jupyter</title>
+<title>8.3-lstm-stacked_tf2</title>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
@@ -13116,8 +13116,8 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Hello-Jupyter">Hello Jupyter<a class="anchor-link" href="#Hello-Jupyter">&#182;</a></h1><h3 id="Goal">Goal<a class="anchor-link" href="#Goal">&#182;</a></h3><p>Get familiar with Jupyter Notebook</p>
-<p><img src="../assets/images/jupyter.png"/></p>
+<h1 id="Lab:-Sentiment-Analysis-by-Long-Short-Term-Memory-(LSTM)">Lab: Sentiment Analysis by Long Short-Term Memory (LSTM)<a class="anchor-link" href="#Lab:-Sentiment-Analysis-by-Long-Short-Term-Memory-(LSTM)">&#182;</a></h1><p>RNN for Sentiment Analysis!</p>
+<p>In this lesson, we implement a stacked Long Short-Term Memory (LSTM) recurrent neural network for Sentiment Analysis on the IMDB text dataset.</p>
 
 </div>
 </div>
@@ -13125,40 +13125,108 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="1:-Create-a-code-cell">1: Create a code cell<a class="anchor-link" href="#1:-Create-a-code-cell">&#182;</a></h2><p>Click on the '+' button on the tool bar above.<br>
-It will create a new cell below here.<br>
-Type the following code into the cell.</p>
-<div class="highlight"><pre><span></span><span class="k">print</span><span class="p">(</span><span class="s2">&quot;Hello world&quot;</span><span class="p">)</span>
-</pre></div>
-<p>And click on 'Run' button to execute.</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="2:-Multiple-Code-Cells">2: Multiple Code Cells<a class="anchor-link" href="#2:-Multiple-Code-Cells">&#182;</a></h2><p>Go ahead and create mutiple code cells below.<br>
-And add the code below in each cell.</p>
-<p>cell 1</p>
-<div class="highlight"><pre><span></span><span class="k">print</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-</pre></div>
-<p>cell 2</p>
-<div class="highlight"><pre><span></span><span class="k">print</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-</pre></div>
-<p>cell 3</p>
-<div class="highlight"><pre><span></span><span class="k">print</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
-</pre></div>
+<p><img src="images/imdb.png"></p>
 
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="prompt input_prompt">In&nbsp;[7]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># code cell</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">try</span><span class="p">:</span>
+  <span class="c1"># %tensorflow_version only exists in Colab.</span>
+  <span class="o">%</span><span class="k">tensorflow_version</span> 2.x
+<span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+  <span class="k">pass</span>
+
+<span class="kn">import</span>  <span class="nn">os</span>
+<span class="kn">import</span>  <span class="nn">tensorflow</span> <span class="k">as</span> <span class="nn">tf</span>
+<span class="kn">import</span>  <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span>    <span class="nn">tensorflow</span> <span class="k">import</span> <span class="n">keras</span>
+
+<span class="n">tf</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">set_seed</span><span class="p">(</span><span class="mi">22</span><span class="p">)</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">22</span><span class="p">)</span>
+<span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">&#39;TF_CPP_MIN_LOG_LEVEL&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;2&#39;</span>
+<span class="k">assert</span> <span class="n">tf</span><span class="o">.</span><span class="n">__version__</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;2.&#39;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[8]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Install the package for running tensorboard on google colaboration</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">google.colab</span>
+    <span class="n">IN_COLAB</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="k">except</span><span class="p">:</span>
+    <span class="n">IN_COLAB</span> <span class="o">=</span> <span class="kc">False</span>
+
+<span class="nb">print</span> <span class="p">(</span><span class="s2">&quot;Running in Google COLAB : &quot;</span><span class="p">,</span> <span class="n">IN_COLAB</span><span class="p">)</span>
+
+
+<span class="k">if</span> <span class="n">IN_COLAB</span> <span class="o">==</span> <span class="kc">True</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">tensorboardcolab</span> <span class="k">import</span> <span class="o">*</span>
+    <span class="o">!</span>pip install -U tensorboardcolab
+<span class="c1"># Load the TensorBoard notebook extension</span>
+    <span class="o">%</span><span class="k">load_ext</span> tensorboard
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Running in Google COLAB :  False
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Fix-random-seed-for-reproducibility">Fix random seed for reproducibility<a class="anchor-link" href="#Fix-random-seed-for-reproducibility">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Step-1:-Downlad-dataset">Step 1: Downlad dataset<a class="anchor-link" href="#Step-1:-Downlad-dataset">&#182;</a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[9]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">7</span><span class="p">)</span>
+<span class="c1"># load the dataset but only keep the top n words, zero the rest</span>
+<span class="n">top_words</span> <span class="o">=</span> <span class="mi">10000</span>
+<span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">),</span> <span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">)</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">datasets</span><span class="o">.</span><span class="n">imdb</span><span class="o">.</span><span class="n">load_data</span><span class="p">(</span><span class="n">num_words</span><span class="o">=</span><span class="n">top_words</span><span class="p">)</span>
+<span class="c1"># X_train = tf.convert_to_tensor(X_train)</span>
+<span class="c1"># y_train = tf.one_hot(y_train, depth=2)</span>
 </pre></div>
 
     </div>
@@ -13169,70 +13237,46 @@ And add the code below in each cell.</p>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>Re-order</strong> code cells, so it prints<br>
-2<br>
-3<br>
-1<br>
-Hint : Use 'up' / 'down' buttons in toolbar</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="3:-Tab-Completion">3: Tab Completion<a class="anchor-link" href="#3:-Tab-Completion">&#182;</a></h2><p>Tab completion is a wonderful feature</p>
-
+<h2 id="Step-2:-Explore-data">Step 2: Explore data<a class="anchor-link" href="#Step-2:-Explore-data">&#182;</a></h2>
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="prompt input_prompt">In&nbsp;[10]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="s2">&quot;Hello World&quot;</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># truncate and pad input sequences</span>
+<span class="n">max_review_length</span> <span class="o">=</span> <span class="mi">80</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Pad sequences (samples x time)&#39;</span><span class="p">)</span>
+<span class="n">x_train</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">preprocessing</span><span class="o">.</span><span class="n">sequence</span><span class="o">.</span><span class="n">pad_sequences</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">maxlen</span><span class="o">=</span><span class="n">max_review_length</span><span class="p">)</span>
+<span class="n">x_test</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">preprocessing</span><span class="o">.</span><span class="n">sequence</span><span class="o">.</span><span class="n">pad_sequences</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">maxlen</span><span class="o">=</span><span class="n">max_review_length</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;x_train shape:&#39;</span><span class="p">,</span> <span class="n">x_train</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;x_test shape:&#39;</span><span class="p">,</span> <span class="n">x_test</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
 </pre></div>
 
     </div>
 </div>
 </div>
 
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Execute the above cell </span>
-<span class="c1"># now let&#39;s find all the methods in A</span>
-<span class="n">a</span><span class="o">.</span><span class="p">[</span><span class="n">TAB</span><span class="p">]</span>
+<div class="output_wrapper">
+<div class="output">
 
-<span class="c1">## find the  method to lowercase the string and print it</span>
-</pre></div>
 
-    </div>
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Pad sequences (samples x time)
+x_train shape: (25000, 80)
+x_test shape: (25000, 80)
+</pre>
 </div>
 </div>
 
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>Use Shift Tab to find the variable type</strong></p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># a[SHIFT][TAB]</span>
-</pre></div>
-
-    </div>
 </div>
 </div>
 
@@ -13240,60 +13284,53 @@ Hint : Use 'up' / 'down' buttons in toolbar</p>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="4---Getting-Help">4 - Getting Help<a class="anchor-link" href="#4---Getting-Help">&#182;</a></h2><p>Use '?' to get help</p>
-
+<h2 id="Step-3:-Create-model">Step 3: Create model<a class="anchor-link" href="#Step-3:-Create-model">&#182;</a></h2>
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="prompt input_prompt">In&nbsp;[11]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="s2">&quot;Hello world&quot;</span>
-a<span class="o">?</span>
-</pre></div>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">class</span> <span class="nc">RNN</span><span class="p">(</span><span class="n">keras</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
 
-    </div>
-</div>
-</div>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">units</span><span class="p">,</span> <span class="n">num_classes</span><span class="p">,</span> <span class="n">num_layers</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">RNN</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
 
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># To find all functions</span>
-a.*<span class="o">?</span>
-</pre></div>
 
-    </div>
-</div>
-</div>
+        <span class="c1"># self.cells = [keras.layers.LSTMCell(units) for _ in range(num_layers)]</span>
+        <span class="c1">#</span>
+        <span class="c1"># self.rnn = keras.layers.RNN(self.cells, unroll=True)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rnn</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">LSTM</span><span class="p">(</span><span class="n">units</span><span class="p">,</span> <span class="n">return_sequences</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rnn2</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">LSTM</span><span class="p">(</span><span class="n">units</span><span class="p">)</span>
 
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># to find functions starting with &#39;l&#39;</span>
-a.l*<span class="o">?</span>
-</pre></div>
+        <span class="c1"># self.cells = (keras.layers.LSTMCell(units) for _ in range(num_layers))</span>
+        <span class="c1"># #</span>
+        <span class="c1"># self.rnn = keras.layers.RNN(self.cells, return_sequences=True, return_state=True)</span>
+        <span class="c1"># self.rnn = keras.layers.LSTM(units, unroll=True)</span>
+        <span class="c1"># self.rnn = keras.layers.StackedRNNCells(self.cells)</span>
 
-    </div>
-</div>
-</div>
 
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># To get more info on a function</span>
-a.lstrip<span class="o">?</span>
+        <span class="c1"># have 1000 words totally, every word will be embedding into 100 length vector</span>
+        <span class="c1"># the max sentence lenght is 80 words</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">embedding</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Embedding</span><span class="p">(</span><span class="n">top_words</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="n">input_length</span><span class="o">=</span><span class="n">max_review_length</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fc</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">call</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">inputs</span><span class="p">,</span> <span class="n">training</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+
+        <span class="c1"># print(&#39;x&#39;, inputs.shape)</span>
+        <span class="c1"># [b, sentence len] =&gt; [b, sentence len, word embedding]</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">embedding</span><span class="p">(</span><span class="n">inputs</span><span class="p">)</span>
+        <span class="c1"># print(&#39;embedding&#39;, x.shape)</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">rnn</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> 
+        <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">rnn2</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> 
+        <span class="c1"># print(&#39;rnn&#39;, x.shape)</span>
+
+        <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fc</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">x</span>
 </pre></div>
 
     </div>
@@ -13304,8 +13341,7 @@ a.lstrip<span class="o">?</span>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="5---Profile:-Measure-time-taken">5 - Profile: Measure time taken<a class="anchor-link" href="#5---Profile:-Measure-time-taken">&#182;</a></h2><p>Use <strong>%%time</strong> construct</p>
-
+<h2 id="Step-4:-Train-model">Step 4: Train model<a class="anchor-link" href="#Step-4:-Train-model">&#182;</a></h2>
 </div>
 </div>
 </div>
@@ -13314,10 +13350,23 @@ a.lstrip<span class="o">?</span>
 <div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%time</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
 
-<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">10000000</span><span class="p">):</span>
-    <span class="k">pass</span>
+    <span class="n">units</span> <span class="o">=</span> <span class="mi">64</span>
+    <span class="n">num_classes</span> <span class="o">=</span> <span class="mi">2</span>
+    <span class="n">batch_size</span> <span class="o">=</span> <span class="mi">32</span>
+    <span class="n">epochs</span> <span class="o">=</span> <span class="mi">20</span>
+
+    <span class="n">model</span> <span class="o">=</span> <span class="n">RNN</span><span class="p">(</span><span class="n">units</span><span class="p">,</span> <span class="n">num_classes</span><span class="p">,</span> <span class="n">num_layers</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+
+
+    <span class="n">model</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">optimizer</span><span class="o">=</span><span class="n">keras</span><span class="o">.</span><span class="n">optimizers</span><span class="o">.</span><span class="n">Adam</span><span class="p">(</span><span class="mf">0.001</span><span class="p">),</span>
+                  <span class="n">loss</span><span class="o">=</span><span class="n">keras</span><span class="o">.</span><span class="n">losses</span><span class="o">.</span><span class="n">BinaryCrossentropy</span><span class="p">(</span><span class="n">from_logits</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
+                  <span class="n">metrics</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;accuracy&#39;</span><span class="p">])</span>
+
+    <span class="c1"># train</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">x_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="n">batch_size</span><span class="p">,</span> <span class="n">epochs</span><span class="o">=</span><span class="n">epochs</span><span class="p">,</span>
+              <span class="n">validation_data</span><span class="o">=</span><span class="p">(</span><span class="n">x_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">),</span> <span class="n">verbose</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -13328,40 +13377,7 @@ a.lstrip<span class="o">?</span>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="6---Execute-All-Cells">6 - Execute All Cells<a class="anchor-link" href="#6---Execute-All-Cells">&#182;</a></h2><p>Click on <strong>'Cell --&gt; Execute All'</strong>  to run all code cells</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="7---Restart-the-Kernel">7 - Restart the Kernel<a class="anchor-link" href="#7---Restart-the-Kernel">&#182;</a></h2><p>If your kernel is not initialized properly, or you want a clean run of your notebook<br>
-Go to <strong>'Kernel --&gt; Restart'</strong></p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="8---Download-Jupyter-Notebook">8 - Download Jupyter Notebook<a class="anchor-link" href="#8---Download-Jupyter-Notebook">&#182;</a></h2><p>Go to 'File --&gt; Download As'  and try to download the notebook in the following formats</p>
-<ul>
-<li>Jupyter Notebook</li>
-<li>Python</li>
-<li>HTML</li>
-<li>Markdown</li>
-<li>PDF</li>
-</ul>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="9---Clean-Halt-the-Notebook">9 - Clean Halt the Notebook<a class="anchor-link" href="#9---Clean-Halt-the-Notebook">&#182;</a></h2><p>Go to <strong>'File --&gt; Close and Halt'</strong></p>
-
+<h2 id="Step-5:-Evaluate">Step 5: Evaluate<a class="anchor-link" href="#Step-5:-Evaluate">&#182;</a></h2>
 </div>
 </div>
 </div>
@@ -13370,13 +13386,84 @@ Go to <strong>'Kernel --&gt; Restart'</strong></p>
 <div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span> 
+<div class=" highlight hl-ipython3"><pre><span></span>    <span class="c1"># evaluate on test set</span>
+    <span class="n">scores</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="n">x_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">,</span> <span class="n">batch_size</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Final test loss and accuracy :&quot;</span><span class="p">,</span> <span class="n">scores</span><span class="p">)</span>
+
+
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
 </pre></div>
 
     </div>
 </div>
 </div>
 
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>(None, 1)
+Train on 25000 samples, validate on 25000 samples
+Epoch 1/20
+(None, 1)
+(None, 1)
+24992/25000 [============================&gt;.] - ETA: 0s - loss: 0.4208 - accuracy: 0.7933(None, 1)
+25000/25000 [==============================] - 86s 3ms/sample - loss: 0.4209 - accuracy: 0.7932 - val_loss: 0.3735 - val_accuracy: 0.8202
+Epoch 2/20
+25000/25000 [==============================] - 81s 3ms/sample - loss: 0.2774 - accuracy: 0.8816 - val_loss: 0.3649 - val_accuracy: 0.8379
+Epoch 3/20
+25000/25000 [==============================] - 81s 3ms/sample - loss: 0.1949 - accuracy: 0.9213 - val_loss: 0.4539 - val_accuracy: 0.8292
+Epoch 4/20
+25000/25000 [==============================] - 80s 3ms/sample - loss: 0.1317 - accuracy: 0.9477 - val_loss: 0.4900 - val_accuracy: 0.8291
+Epoch 5/20
+25000/25000 [==============================] - 81s 3ms/sample - loss: 0.0905 - accuracy: 0.9671 - val_loss: 0.6182 - val_accuracy: 0.8050
+Epoch 6/20
+25000/25000 [==============================] - 80s 3ms/sample - loss: 0.0665 - accuracy: 0.9772 - val_loss: 0.5837 - val_accuracy: 0.8112
+Epoch 7/20
+25000/25000 [==============================] - 81s 3ms/sample - loss: 0.0473 - accuracy: 0.9847 - val_loss: 0.7464 - val_accuracy: 0.8206
+Epoch 8/20
+25000/25000 [==============================] - 81s 3ms/sample - loss: 0.0373 - accuracy: 0.9870 - val_loss: 0.8030 - val_accuracy: 0.8152
+Epoch 9/20
+25000/25000 [==============================] - 81s 3ms/sample - loss: 0.0268 - accuracy: 0.9924 - val_loss: 0.9314 - val_accuracy: 0.8142
+Epoch 10/20
+25000/25000 [==============================] - 79s 3ms/sample - loss: 0.0259 - accuracy: 0.9924 - val_loss: 0.8653 - val_accuracy: 0.8148
+Epoch 11/20
+25000/25000 [==============================] - 77s 3ms/sample - loss: 0.0245 - accuracy: 0.9920 - val_loss: 0.8867 - val_accuracy: 0.8152
+Epoch 12/20
+25000/25000 [==============================] - 79s 3ms/sample - loss: 0.0211 - accuracy: 0.9932 - val_loss: 0.9108 - val_accuracy: 0.8147
+Epoch 13/20
+25000/25000 [==============================] - 77s 3ms/sample - loss: 0.0166 - accuracy: 0.9948 - val_loss: 1.0029 - val_accuracy: 0.8150
+Epoch 14/20
+25000/25000 [==============================] - 78s 3ms/sample - loss: 0.0158 - accuracy: 0.9945 - val_loss: 0.9457 - val_accuracy: 0.8104
+Epoch 15/20
+25000/25000 [==============================] - 77s 3ms/sample - loss: 0.0149 - accuracy: 0.9951 - val_loss: 0.9835 - val_accuracy: 0.8215
+Epoch 16/20
+25000/25000 [==============================] - 77s 3ms/sample - loss: 0.0127 - accuracy: 0.9959 - val_loss: 1.1360 - val_accuracy: 0.8224
+Epoch 17/20
+ 6016/25000 [======&gt;.......................] - ETA: 46s - loss: 0.0038 - accuracy: 0.9987</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Source:">Source:<a class="anchor-link" href="#Source:">&#182;</a></h3><p><a href="https://github.com/dragen1860/TensorFlow-2.x-Tutorials/blob/master/09-RNN-Sentiment-Analysis/main.py">https://github.com/dragen1860/TensorFlow-2.x-Tutorials/blob/master/09-RNN-Sentiment-Analysis/main.py</a></p>
+
+</div>
+</div>
 </div>
     </div>
   </div>

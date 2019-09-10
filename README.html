@@ -2,7 +2,7 @@
 <html>
 <head><meta charset="utf-8" />
 
-<title>hello-jupyter</title>
+<title>README</title>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
@@ -13116,251 +13116,69 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Hello-Jupyter">Hello Jupyter<a class="anchor-link" href="#Hello-Jupyter">&#182;</a></h1><h3 id="Goal">Goal<a class="anchor-link" href="#Goal">&#182;</a></h3><p>Get familiar with Jupyter Notebook</p>
-<p><img src="../assets/images/jupyter.png"/></p>
-
+<h1 id="Deep-Learning---v2">Deep Learning - v2<a class="anchor-link" href="#Deep-Learning---v2">&#182;</a></h1>
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="1:-Create-a-code-cell">1: Create a code cell<a class="anchor-link" href="#1:-Create-a-code-cell">&#182;</a></h2><p>Click on the '+' button on the tool bar above.<br>
-It will create a new cell below here.<br>
-Type the following code into the cell.</p>
-<div class="highlight"><pre><span></span><span class="k">print</span><span class="p">(</span><span class="s2">&quot;Hello world&quot;</span><span class="p">)</span>
+<p>To run this lab:</p>
+<div class="highlight"><pre><span></span>$   <span class="nb">cd</span>  /path/to/lab/dir
+    $   ./run-jupyter.sh
 </pre></div>
-<p>And click on 'Run' button to execute.</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="2:-Multiple-Code-Cells">2: Multiple Code Cells<a class="anchor-link" href="#2:-Multiple-Code-Cells">&#182;</a></h2><p>Go ahead and create mutiple code cells below.<br>
-And add the code below in each cell.</p>
-<p>cell 1</p>
-<div class="highlight"><pre><span></span><span class="k">print</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<h2 id="Labs">Labs<a class="anchor-link" href="#Labs">&#182;</a></h2><h3 id="Setup">Setup<a class="anchor-link" href="#Setup">&#182;</a></h3><h4 id="Option-1-:-Using-Colab-(Least-Effort)">Option 1 : Using Colab (Least Effort)<a class="anchor-link" href="#Option-1-:-Using-Colab-(Least-Effort)">&#182;</a></h4><p>If using Google's Colab environment, no setup is necessary.<br>
+Read <a href="docs/google-colab.html">Colab intro guide</a></p>
+<h4 id="Option-2:-Using-Training-Docker-Image--(Recommended)">Option 2: Using Training Docker Image  (Recommended)<a class="anchor-link" href="#Option-2:-Using-Training-Docker-Image--(Recommended)">&#182;</a></h4><p>This docker image has most of the software already installed.<br>
+Follow <a href="docs/setup.html">setup</a> to complete the set up.</p>
+<h4 id="Option-3-:-Using-your-own-machine--(Advanced)">Option 3 : Using your own machine  (Advanced)<a class="anchor-link" href="#Option-3-:-Using-your-own-machine--(Advanced)">&#182;</a></h4><p>You are welcome to use your own machine for the class.<br>
+Here are <a href="docs/setup-local.html">instructions to setup your machine</a></p>
+<h4 id="Final-Step:-(Must-do-for-all)-Verifying-the-setup">Final Step: (<em>Must do for all</em>) Verifying the setup<a class="anchor-link" href="#Final-Step:-(Must-do-for-all)-Verifying-the-setup">&#182;</a></h4><p>Once done with setup, <strong>Test your setup by running <a href="0-testing/testing-123.html">Testing123</a></strong><br>
+Make sure there are no errors!</p>
+<hr>
+<h3 id="Where-to-get-Data">Where to get Data<a class="anchor-link" href="#Where-to-get-Data">&#182;</a></h3><ul>
+<li>You can access the data repository <a href="https://s3.amazonaws.com/elephantscale-public/data/datasets.zip">here</a> (click link to download.  warning large file size ~300Meg + )<br>
+To download this from command line<div class="highlight"><pre><span></span>$    wget <span class="s1">&#39;https://s3.amazonaws.com/elephantscale-public/data/datasets.zip&#39;</span>
 </pre></div>
-<p>cell 2</p>
-<div class="highlight"><pre><span></span><span class="k">print</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-</pre></div>
-<p>cell 3</p>
-<div class="highlight"><pre><span></span><span class="k">print</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># code cell</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>Re-order</strong> code cells, so it prints<br>
-2<br>
-3<br>
-1<br>
-Hint : Use 'up' / 'down' buttons in toolbar</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="3:-Tab-Completion">3: Tab Completion<a class="anchor-link" href="#3:-Tab-Completion">&#182;</a></h2><p>Tab completion is a wonderful feature</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="s2">&quot;Hello World&quot;</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Execute the above cell </span>
-<span class="c1"># now let&#39;s find all the methods in A</span>
-<span class="n">a</span><span class="o">.</span><span class="p">[</span><span class="n">TAB</span><span class="p">]</span>
-
-<span class="c1">## find the  method to lowercase the string and print it</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>Use Shift Tab to find the variable type</strong></p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># a[SHIFT][TAB]</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="4---Getting-Help">4 - Getting Help<a class="anchor-link" href="#4---Getting-Help">&#182;</a></h2><p>Use '?' to get help</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="s2">&quot;Hello world&quot;</span>
-a<span class="o">?</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># To find all functions</span>
-a.*<span class="o">?</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># to find functions starting with &#39;l&#39;</span>
-a.l*<span class="o">?</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># To get more info on a function</span>
-a.lstrip<span class="o">?</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="5---Profile:-Measure-time-taken">5 - Profile: Measure time taken<a class="anchor-link" href="#5---Profile:-Measure-time-taken">&#182;</a></h2><p>Use <strong>%%time</strong> construct</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%time</span>
-
-<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">10000000</span><span class="p">):</span>
-    <span class="k">pass</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="6---Execute-All-Cells">6 - Execute All Cells<a class="anchor-link" href="#6---Execute-All-Cells">&#182;</a></h2><p>Click on <strong>'Cell --&gt; Execute All'</strong>  to run all code cells</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="7---Restart-the-Kernel">7 - Restart the Kernel<a class="anchor-link" href="#7---Restart-the-Kernel">&#182;</a></h2><p>If your kernel is not initialized properly, or you want a clean run of your notebook<br>
-Go to <strong>'Kernel --&gt; Restart'</strong></p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="8---Download-Jupyter-Notebook">8 - Download Jupyter Notebook<a class="anchor-link" href="#8---Download-Jupyter-Notebook">&#182;</a></h2><p>Go to 'File --&gt; Download As'  and try to download the notebook in the following formats</p>
-<ul>
-<li>Jupyter Notebook</li>
-<li>Python</li>
-<li>HTML</li>
-<li>Markdown</li>
-<li>PDF</li>
+</li>
+<li>Also here are some popular data sources<ul>
+<li><a href="https://archive.ics.uci.edu/ml/index.php">UCI machine learning repository</a> - very popular repo with lots of real world (and reasonably clean) datasets</li>
+<li><a href="https://www.kaggle.com/datasets">Kaggle data repository</a> - lot's of real world data used in competitions</li>
 </ul>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="9---Clean-Halt-the-Notebook">9 - Clean Halt the Notebook<a class="anchor-link" href="#9---Clean-Halt-the-Notebook">&#182;</a></h2><p>Go to <strong>'File --&gt; Close and Halt'</strong></p>
+</li>
+</ul>
+<hr>
+<h2 id="Labs">Labs<a class="anchor-link" href="#Labs">&#182;</a></h2><h3 id="1---Hello-Jupyter">1 - Hello Jupyter<a class="anchor-link" href="#1---Hello-Jupyter">&#182;</a></h3><ul>
+<li>1.1 - <a href="0-testing/hello-jupyter.html">Hello Jupyter</a></li>
+</ul>
+<h3 id="2---(Optional)-Basic-Python-Labs:--Numpy,--Pandas,-Stats-and-Visualization">2 - (Optional) Basic Python Labs:  Numpy,  Pandas, Stats and Visualization<a class="anchor-link" href="#2---(Optional)-Basic-Python-Labs:--Numpy,--Pandas,-Stats-and-Visualization">&#182;</a></h3><p>Not covered in class.  But provided as a quick reference lab.<br>
+In <strong>python-basics</strong> folder.</p>
+<h3 id="3---Tensorflow">3 - Tensorflow<a class="anchor-link" href="#3---Tensorflow">&#182;</a></h3><ul>
+<li>3.1 - <a href="tensorflow/1-tensorflow-test-v1.html">Tensorflow core API v1</a></li>
+<li>3.2 - <a href="tensorflow/2-tensorflow-test-v2.html">Tensorflow core API v2</a></li>
+</ul>
+<h3 id="4---Regressions">4 - Regressions<a class="anchor-link" href="#4---Regressions">&#182;</a></h3><ul>
+<li>4.1 - (instructor to demo first)  <a href="regressions/1-regression-linear-tips.html">Regression 1 : Linear</a> - Start with a simple linear regression (bills/tips data)</li>
+<li>4.2 - <a href="regressions/2-regression-house-prices.html">Regression 2 : Predict house prices</a></li>
+</ul>
+<h3 id="5---Utilities-1-:-Metrics">5 - Utilities 1 : Metrics<a class="anchor-link" href="#5---Utilities-1-:-Metrics">&#182;</a></h3><p>Let's learn some tooling in Deep Learning that makes our lives much easier</p>
+<ul>
+<li>5.1 - <a href="metrics/1-metrics.html">Metrics 1 - Training metrics</a> - Understand and evaluate metrics of trainnig a NN</li>
+<li>5.2 - <a href="metrics/2-metrics-tensorboard.html">Metrics 2 - Using Tensorboard for metrics</a></li>
+</ul>
+<h3 id="6---Classifications">6 - Classifications<a class="anchor-link" href="#6---Classifications">&#182;</a></h3><ul>
+<li>6.1 - (Instructor to demo this first) <a href="clssifications/1-classification-iris.iynb">Classification 1 : IRIS dataset</a></li>
+<li>6.2 - <a href="clssifications/2-classification-prosper.iynb">Classification 2 : Predict loan defaults in Prosper dataset</a></li>
+</ul>
+<h3 id="7---Utilities-2---Callbacks">7 - Utilities 2 - Callbacks<a class="anchor-link" href="#7---Utilities-2---Callbacks">&#182;</a></h3><ul>
+<li>7.1 - TODO <a href="">Utilities - Callbacks</a> - control training</li>
+</ul>
+<h3 id="Mid-Course-Workshop-(time-permitting)">Mid-Course Workshop (time permitting)<a class="anchor-link" href="#Mid-Course-Workshop-(time-permitting)">&#182;</a></h3><p>We are going to use 'Diabetes' dataset.  This is an 'open ended lab'.<br>
+Start with a fresh notebook.  And see if you can predict the outcome.<br>
+Also try different algorithms and see which one performs better :-)</p>
+<ul>
+<li><a href="workshops/diabetes-prediction.html">Diabetes prediction</a></li>
+</ul>
 
 </div>
 </div>

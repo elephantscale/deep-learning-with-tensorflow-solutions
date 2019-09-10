@@ -2,7 +2,7 @@
 <html>
 <head><meta charset="utf-8" />
 
-<title>hello-jupyter</title>
+<title>1-numpy</title>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
@@ -13116,8 +13116,9 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Hello-Jupyter">Hello Jupyter<a class="anchor-link" href="#Hello-Jupyter">&#182;</a></h1><h3 id="Goal">Goal<a class="anchor-link" href="#Goal">&#182;</a></h3><p>Get familiar with Jupyter Notebook</p>
-<p><img src="../assets/images/jupyter.png"/></p>
+<h1 id="NumPy-and-SciPy">NumPy and SciPy<a class="anchor-link" href="#NumPy-and-SciPy">&#182;</a></h1><p>NumPy and SciPy are the twin pillars of doing data science in Python.  Early on in Python's history, it became clear that Python's list data structures weren't ideal for doing heavy-duty number crunching on vectors and matrices.</p>
+<p>So, numpy was born to try to solve the problem, and introduce an array-type data structure into Python.</p>
+<p>Let's first create an array:</p>
 
 </div>
 </div>
@@ -13125,31 +13126,7 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="1:-Create-a-code-cell">1: Create a code cell<a class="anchor-link" href="#1:-Create-a-code-cell">&#182;</a></h2><p>Click on the '+' button on the tool bar above.<br>
-It will create a new cell below here.<br>
-Type the following code into the cell.</p>
-<div class="highlight"><pre><span></span><span class="k">print</span><span class="p">(</span><span class="s2">&quot;Hello world&quot;</span><span class="p">)</span>
-</pre></div>
-<p>And click on 'Run' button to execute.</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="2:-Multiple-Code-Cells">2: Multiple Code Cells<a class="anchor-link" href="#2:-Multiple-Code-Cells">&#182;</a></h2><p>Go ahead and create mutiple code cells below.<br>
-And add the code below in each cell.</p>
-<p>cell 1</p>
-<div class="highlight"><pre><span></span><span class="k">print</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-</pre></div>
-<p>cell 2</p>
-<div class="highlight"><pre><span></span><span class="k">print</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-</pre></div>
-<p>cell 3</p>
-<div class="highlight"><pre><span></span><span class="k">print</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
-</pre></div>
-
+<h2 id="Import">Import<a class="anchor-link" href="#Import">&#182;</a></h2>
 </div>
 </div>
 </div>
@@ -13158,7 +13135,7 @@ And add the code below in each cell.</p>
 <div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># code cell</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 </pre></div>
 
     </div>
@@ -13169,20 +13146,7 @@ And add the code below in each cell.</p>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>Re-order</strong> code cells, so it prints<br>
-2<br>
-3<br>
-1<br>
-Hint : Use 'up' / 'down' buttons in toolbar</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="3:-Tab-Completion">3: Tab Completion<a class="anchor-link" href="#3:-Tab-Completion">&#182;</a></h2><p>Tab completion is a wonderful feature</p>
-
+<h2 id="Array">Array<a class="anchor-link" href="#Array">&#182;</a></h2>
 </div>
 </div>
 </div>
@@ -13191,7 +13155,12 @@ Hint : Use 'up' / 'down' buttons in toolbar</p>
 <div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="s2">&quot;Hello World&quot;</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">## Notice that we have to pass in a list of numbers rather than </span>
+<span class="c1">## np.array(1,2,3)  ## ERROR: won&#39;t work</span>
+
+<span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">])</span> <span class="c1">## Correct## Array</span>
+<span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">])</span>
+<span class="n">a</span>
 </pre></div>
 
     </div>
@@ -13204,11 +13173,7 @@ Hint : Use 'up' / 'down' buttons in toolbar</p>
 <div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Execute the above cell </span>
-<span class="c1"># now let&#39;s find all the methods in A</span>
-<span class="n">a</span><span class="o">.</span><span class="p">[</span><span class="n">TAB</span><span class="p">]</span>
-
-<span class="c1">## find the  method to lowercase the string and print it</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># TODO: Make a numpy array with the values 3.1, 4.2, 5.6, 7.8</span>
 </pre></div>
 
     </div>
@@ -13219,8 +13184,7 @@ Hint : Use 'up' / 'down' buttons in toolbar</p>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>Use Shift Tab to find the variable type</strong></p>
-
+<h2 id="Sequence">Sequence<a class="anchor-link" href="#Sequence">&#182;</a></h2>
 </div>
 </div>
 </div>
@@ -13229,29 +13193,8 @@ Hint : Use 'up' / 'down' buttons in toolbar</p>
 <div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># a[SHIFT][TAB]</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="4---Getting-Help">4 - Getting Help<a class="anchor-link" href="#4---Getting-Help">&#182;</a></h2><p>Use '?' to get help</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="s2">&quot;Hello world&quot;</span>
-a<span class="o">?</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">## Sequence 1 to 10</span>
+<span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">10</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -13264,8 +13207,81 @@ a<span class="o">?</span>
 <div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># To find all functions</span>
-a.*<span class="o">?</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">## TODO : create a range of 1 to 100 (including 100)</span>
+
+<span class="n">r</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">101</span><span class="p">)</span>
+<span class="nb">print</span> <span class="p">(</span><span class="n">r</span><span class="p">)</span>
+
+<span class="c1">## Try to multiply sequence by a scaler (np.pi)</span>
+<span class="nb">print</span> <span class="p">(</span><span class="n">r</span> <span class="o">*</span>  <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Multi-Dimensinal-Arrays-With-Shape">Multi Dimensinal Arrays With Shape<a class="anchor-link" href="#Multi-Dimensinal-Arrays-With-Shape">&#182;</a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">])</span>
+<span class="n">a</span><span class="o">.</span><span class="n">shape</span> <span class="o">=</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span> <span class="c1"># 2 rows, 3 columns</span>
+<span class="n">a</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Matrices">Matrices<a class="anchor-link" href="#Matrices">&#182;</a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">## 2 rows and 3 columns</span>
+<span class="n">np</span><span class="o">.</span><span class="n">matrix</span><span class="p">(</span><span class="s1">&#39;1 2 3; 4 5 6&#39;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Matrix multiplication requires the use of matrices.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">## Matrix Multiply</span>
+
+<span class="n">a1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">matrix</span><span class="p">(</span><span class="s1">&#39;1 2; 3 4&#39;</span><span class="p">)</span>
+<span class="n">a2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">matrix</span><span class="p">(</span><span class="s1">&#39;3 4; 5 7&#39;</span><span class="p">)</span>
+<span class="n">a1</span> <span class="o">*</span> <span class="n">a2</span>
 </pre></div>
 
     </div>
@@ -13278,8 +13294,90 @@ a.*<span class="o">?</span>
 <div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># to find functions starting with &#39;l&#39;</span>
-a.l*<span class="o">?</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Converting an array to a matrix</span>
+<span class="n">mat_a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mat</span><span class="p">(</span><span class="n">a1</span><span class="p">)</span>
+<span class="n">mat_a</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Sparse-Matrices">Sparse Matrices<a class="anchor-link" href="#Sparse-Matrices">&#182;</a></h2><p>Sometimes we may have sparse data and want to store a sparse matrix</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span><span class="o">,</span> <span class="nn">scipy.sparse</span>
+<span class="n">n</span> <span class="o">=</span> <span class="mi">100000</span>
+<span class="n">x</span> <span class="o">=</span> <span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="n">n</span><span class="p">)</span> <span class="o">*</span> <span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span> <span class="c1"># 50% sparse vector</span>
+<span class="n">x_csr</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">sparse</span><span class="o">.</span><span class="n">csr_matrix</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="n">x_dok</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">sparse</span><span class="o">.</span><span class="n">dok_matrix</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">x_csr</span><span class="o">.</span><span class="n">shape</span><span class="p">))</span>
+
+<span class="n">x_dok</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Loading-from-CSV-file">Loading from CSV file<a class="anchor-link" href="#Loading-from-CSV-file">&#182;</a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">csv</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;/data/misc/array.csv&#39;</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">csvfile</span><span class="p">:</span>
+    <span class="n">csvreader</span> <span class="o">=</span> <span class="n">csv</span><span class="o">.</span><span class="n">reader</span><span class="p">(</span><span class="n">csvfile</span><span class="p">)</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">csvreader</span><span class="p">:</span>
+        <span class="n">row</span> <span class="o">=</span> <span class="p">[</span><span class="nb">float</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">row</span><span class="p">]</span>
+        <span class="n">data</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">row</span><span class="p">)</span>
+
+<span class="n">data</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Solving-a-matrix">Solving a matrix<a class="anchor-link" href="#Solving-a-matrix">&#182;</a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">scipy</span> <span class="k">as</span> <span class="nn">sp</span>
+
+<span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">3</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">1</span><span class="p">]])</span>
+<span class="n">b</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">2</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">)</span>
+<span class="n">x</span>
 </pre></div>
 
     </div>
@@ -13292,78 +13390,15 @@ a.l*<span class="o">?</span>
 <div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># To get more info on a function</span>
-a.lstrip<span class="o">?</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#Checking the answer</span>
+
+<span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span> <span class="o">==</span> <span class="n">b</span>
 </pre></div>
 
     </div>
 </div>
 </div>
 
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="5---Profile:-Measure-time-taken">5 - Profile: Measure time taken<a class="anchor-link" href="#5---Profile:-Measure-time-taken">&#182;</a></h2><p>Use <strong>%%time</strong> construct</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%time</span>
-
-<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">10000000</span><span class="p">):</span>
-    <span class="k">pass</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="6---Execute-All-Cells">6 - Execute All Cells<a class="anchor-link" href="#6---Execute-All-Cells">&#182;</a></h2><p>Click on <strong>'Cell --&gt; Execute All'</strong>  to run all code cells</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="7---Restart-the-Kernel">7 - Restart the Kernel<a class="anchor-link" href="#7---Restart-the-Kernel">&#182;</a></h2><p>If your kernel is not initialized properly, or you want a clean run of your notebook<br>
-Go to <strong>'Kernel --&gt; Restart'</strong></p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="8---Download-Jupyter-Notebook">8 - Download Jupyter Notebook<a class="anchor-link" href="#8---Download-Jupyter-Notebook">&#182;</a></h2><p>Go to 'File --&gt; Download As'  and try to download the notebook in the following formats</p>
-<ul>
-<li>Jupyter Notebook</li>
-<li>Python</li>
-<li>HTML</li>
-<li>Markdown</li>
-<li>PDF</li>
-</ul>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="9---Clean-Halt-the-Notebook">9 - Clean Halt the Notebook<a class="anchor-link" href="#9---Clean-Halt-the-Notebook">&#182;</a></h2><p>Go to <strong>'File --&gt; Close and Halt'</strong></p>
-
-</div>
-</div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">

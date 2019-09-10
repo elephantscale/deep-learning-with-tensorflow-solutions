@@ -2,7 +2,7 @@
 <html>
 <head><meta charset="utf-8" />
 
-<title>hello-jupyter</title>
+<title>1-rnn-intro-text</title>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
@@ -13116,49 +13116,113 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Hello-Jupyter">Hello Jupyter<a class="anchor-link" href="#Hello-Jupyter">&#182;</a></h1><h3 id="Goal">Goal<a class="anchor-link" href="#Goal">&#182;</a></h3><p>Get familiar with Jupyter Notebook</p>
-<p><img src="../assets/images/jupyter.png"/></p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="1:-Create-a-code-cell">1: Create a code cell<a class="anchor-link" href="#1:-Create-a-code-cell">&#182;</a></h2><p>Click on the '+' button on the tool bar above.<br>
-It will create a new cell below here.<br>
-Type the following code into the cell.</p>
-<div class="highlight"><pre><span></span><span class="k">print</span><span class="p">(</span><span class="s2">&quot;Hello world&quot;</span><span class="p">)</span>
-</pre></div>
-<p>And click on 'Run' button to execute.</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="2:-Multiple-Code-Cells">2: Multiple Code Cells<a class="anchor-link" href="#2:-Multiple-Code-Cells">&#182;</a></h2><p>Go ahead and create mutiple code cells below.<br>
-And add the code below in each cell.</p>
-<p>cell 1</p>
-<div class="highlight"><pre><span></span><span class="k">print</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-</pre></div>
-<p>cell 2</p>
-<div class="highlight"><pre><span></span><span class="k">print</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-</pre></div>
-<p>cell 3</p>
-<div class="highlight"><pre><span></span><span class="k">print</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
-</pre></div>
-
+<h1 id="Lab:-Using-Recurrent-Neural-Network-(RNN)-to-process-the-text">Lab: Using Recurrent Neural Network (RNN) to process the text<a class="anchor-link" href="#Lab:-Using-Recurrent-Neural-Network-(RNN)-to-process-the-text">&#182;</a></h1>
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="prompt input_prompt">In&nbsp;[1]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># code cell</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">try</span><span class="p">:</span>
+  <span class="c1"># %tensorflow_version only exists in Colab.</span>
+  <span class="o">%</span><span class="k">tensorflow_version</span> 2.x
+<span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+  <span class="k">pass</span>
+
+<span class="kn">import</span> <span class="nn">tensorflow</span> <span class="k">as</span> <span class="nn">tf</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="c1"># import unidecode</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[2]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Install the package for running tensorboard on google colaboration</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">google.colab</span>
+    <span class="n">IN_COLAB</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="k">except</span><span class="p">:</span>
+    <span class="n">IN_COLAB</span> <span class="o">=</span> <span class="kc">False</span>
+
+<span class="nb">print</span> <span class="p">(</span><span class="s2">&quot;Running in Google COLAB : &quot;</span><span class="p">,</span> <span class="n">IN_COLAB</span><span class="p">)</span>
+
+
+<span class="c1"># if IN_COLAB == True:</span>
+<span class="c1">#     from tensorboardcolab import *</span>
+<span class="c1">#     !pip install -U tensorboardcolab</span>
+<span class="c1"># # Load the TensorBoard notebook extension</span>
+<span class="c1">#     %load_ext tensorboard</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Running in Google COLAB :  False
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Step-1:-Load-Data">Step 1: Load Data<a class="anchor-link" href="#Step-1:-Load-Data">&#182;</a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[3]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># You can used your own dataset with english text</span>
+<span class="n">data_location</span> <span class="o">=</span> <span class="s2">&quot;/data/text/state-of-the-unions/2009-Obama.txt&quot;</span>
+<span class="c1"># data_location = &#39;https://elephantscale-public.s3.amazonaws.com/data/text/state-of-the-unions/2009-Obama.txt&#39;</span>
+
+
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span> <span class="n">data_location</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="n">text</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[4]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">## If the above fails, try this</span>
+
+<span class="c1"># !wget &#39;https://elephantscale-public.s3.amazonaws.com/data/text/state-of-the-unions/2009-Obama.txt&#39;</span>
+
+<span class="c1"># with open(&#39;2009-Obama.txt&#39; , &quot;r&quot;) as f:</span>
+<span class="c1">#     text = f.read()</span>
 </pre></div>
 
     </div>
@@ -13169,70 +13233,56 @@ And add the code below in each cell.</p>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>Re-order</strong> code cells, so it prints<br>
-2<br>
-3<br>
-1<br>
-Hint : Use 'up' / 'down' buttons in toolbar</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="3:-Tab-Completion">3: Tab Completion<a class="anchor-link" href="#3:-Tab-Completion">&#182;</a></h2><p>Tab completion is a wonderful feature</p>
-
+<h2 id="Step-2-:-Explore-Data">Step 2 : Explore Data<a class="anchor-link" href="#Step-2-:-Explore-Data">&#182;</a></h2>
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="prompt input_prompt">In&nbsp;[5]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="s2">&quot;Hello World&quot;</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">text</span><span class="p">))</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">text</span><span class="p">[:</span><span class="mi">1000</span><span class="p">])</span>
 </pre></div>
 
     </div>
 </div>
 </div>
 
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Execute the above cell </span>
-<span class="c1"># now let&#39;s find all the methods in A</span>
-<span class="n">a</span><span class="o">.</span><span class="p">[</span><span class="n">TAB</span><span class="p">]</span>
+<div class="output_wrapper">
+<div class="output">
 
-<span class="c1">## find the  method to lowercase the string and print it</span>
-</pre></div>
 
-    </div>
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>33794
+Madame Speaker, Mr. Vice President, Members of Congress, and the First Lady of
+the United States:
+
+I&#39;ve come here tonight not only to address the distinguished men and women in
+this great chamber, but to speak frankly and directly to the men and women who
+sent us here.
+
+I know that for many Americans watching right now, the state of our economy is
+a concern that rises above all others.  And rightly so.  If you haven&#39;t been
+personally affected by this recession, you probably know someone who has -- a
+friend; a neighbor; a member of your family.  You don&#39;t need to hear another
+list of statistics to know that our economy is in crisis, because you live it
+every day.  It&#39;s the worry you wake up with and the source of sleepless
+nights.  It&#39;s the job you thought you&#39;d retire from but now have lost; the
+business you built your dreams upon that&#39;s now hanging by a thread; the
+college acceptance letter your child had to put back in the envelope.  The
+impact of this recession is real, and it is ev
+</pre>
 </div>
 </div>
 
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>Use Shift Tab to find the variable type</strong></p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># a[SHIFT][TAB]</span>
-</pre></div>
-
-    </div>
 </div>
 </div>
 
@@ -13240,60 +13290,363 @@ Hint : Use 'up' / 'down' buttons in toolbar</p>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="4---Getting-Help">4 - Getting Help<a class="anchor-link" href="#4---Getting-Help">&#182;</a></h2><p>Use '?' to get help</p>
+<h2 id="Step-3-:-Shape-Data">Step 3 : Shape Data<a class="anchor-link" href="#Step-3-:-Shape-Data">&#182;</a></h2><h3 id="3.1---Remove-character-and-create-vocabulary">3.1 - Remove character and create vocabulary<a class="anchor-link" href="#3.1---Remove-character-and-create-vocabulary">&#182;</a></h3><p><img src="../assets/images/rnn_vocab.png"></p>
 
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="prompt input_prompt">In&nbsp;[6]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="s2">&quot;Hello world&quot;</span>
-a<span class="o">?</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">unidecode</span> 
+
+<span class="n">text</span> <span class="o">=</span> <span class="n">unidecode</span><span class="o">.</span><span class="n">unidecode</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+<span class="n">text</span> <span class="o">=</span> <span class="n">text</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+
+<span class="n">text</span> <span class="o">=</span> <span class="n">text</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;2&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+<span class="n">text</span> <span class="o">=</span> <span class="n">text</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;1&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+<span class="n">text</span> <span class="o">=</span> <span class="n">text</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;8&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+<span class="n">text</span> <span class="o">=</span> <span class="n">text</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;5&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+<span class="n">text</span> <span class="o">=</span> <span class="n">text</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;&gt;&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+<span class="n">text</span> <span class="o">=</span> <span class="n">text</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;&lt;&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+<span class="n">text</span> <span class="o">=</span> <span class="n">text</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;!&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+<span class="n">text</span> <span class="o">=</span> <span class="n">text</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;?&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+<span class="n">text</span> <span class="o">=</span> <span class="n">text</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;-&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+<span class="n">text</span> <span class="o">=</span> <span class="n">text</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;$&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+
+<span class="n">text</span> <span class="o">=</span> <span class="n">text</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+
+<span class="n">vocab</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">vocab</span><span class="p">),</span> <span class="n">vocab</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">text</span><span class="p">[:</span><span class="mi">1000</span><span class="p">])</span>
 </pre></div>
 
     </div>
 </div>
 </div>
 
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>41 {&#39;a&#39;, &#39;p&#39;, &#39;i&#39;, &#39;:&#39;, &#39;y&#39;, &#39;0&#39;, &#39;;&#39;, &#39;3&#39;, &#39;n&#39;, &#39;k&#39;, &#39;d&#39;, &#39;e&#39;, &#39;\n&#39;, &#39;h&#39;, &#39;.&#39;, &#39;9&#39;, &#39;o&#39;, &#39;t&#39;, &#39; &#39;, &#34;&#39;&#34;, &#39;x&#39;, &#39;q&#39;, &#39;%&#39;, &#39;w&#39;, &#39;b&#39;, &#39;r&#39;, &#39;l&#39;, &#39;,&#39;, &#39;g&#39;, &#39;c&#39;, &#39;u&#39;, &#39;v&#39;, &#39;7&#39;, &#39;/&#39;, &#39;m&#39;, &#39;6&#39;, &#39;j&#39;, &#39;s&#39;, &#39;&#34;&#39;, &#39;z&#39;, &#39;f&#39;}
+madame speaker, mr. vice president, members of congress, and the first lady of
+the united states:
+
+i&#39;ve come here tonight not only to address the distinguished men and women in
+this great chamber, but to speak frankly and directly to the men and women who
+sent us here.
+
+i know that for many americans watching right now, the state of our economy is
+a concern that rises above all others.  and rightly so.  if you haven&#39;t been
+personally affected by this recession, you probably know someone who has  a
+friend; a neighbor; a member of your family.  you don&#39;t need to hear another
+list of statistics to know that our economy is in crisis, because you live it
+every day.  it&#39;s the worry you wake up with and the source of sleepless
+nights.  it&#39;s the job you thought you&#39;d retire from but now have lost; the
+business you built your dreams upon that&#39;s now hanging by a thread; the
+college acceptance letter your child had to put back in the envelope.  the
+impact of this recession is real, and it is ever
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="3.2---Map-each-letter-to-int">3.2 - Map each letter to int<a class="anchor-link" href="#3.2---Map-each-letter-to-int">&#182;</a></h3>
+</div>
+</div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="prompt input_prompt">In&nbsp;[7]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># To find all functions</span>
-a.*<span class="o">?</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">vocab_size</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">vocab</span><span class="p">)</span>
+
+<span class="n">vocab_to_int</span> <span class="o">=</span> <span class="p">{</span><span class="n">l</span><span class="p">:</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span><span class="n">l</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">vocab</span><span class="p">)}</span>
+<span class="n">int_to_vocab</span> <span class="o">=</span> <span class="p">{</span><span class="n">i</span><span class="p">:</span><span class="n">l</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span><span class="n">l</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">vocab</span><span class="p">)}</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;vocab_to_int&quot;</span><span class="p">,</span> <span class="n">vocab_to_int</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;int_to_vocab&quot;</span><span class="p">,</span> <span class="n">int_to_vocab</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">int for e:&quot;</span><span class="p">,</span> <span class="n">vocab_to_int</span><span class="p">[</span><span class="s2">&quot;e&quot;</span><span class="p">])</span>
+<span class="n">int_for_e</span> <span class="o">=</span> <span class="n">vocab_to_int</span><span class="p">[</span><span class="s2">&quot;e&quot;</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;letter for </span><span class="si">%s</span><span class="s2">: </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">vocab_to_int</span><span class="p">[</span><span class="s2">&quot;e&quot;</span><span class="p">],</span> <span class="n">int_to_vocab</span><span class="p">[</span><span class="n">int_for_e</span><span class="p">]))</span>
 </pre></div>
 
     </div>
 </div>
 </div>
 
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>vocab_to_int {&#39;a&#39;: 0, &#39;p&#39;: 1, &#39;i&#39;: 2, &#39;:&#39;: 3, &#39;y&#39;: 4, &#39;0&#39;: 5, &#39;;&#39;: 6, &#39;3&#39;: 7, &#39;n&#39;: 8, &#39;k&#39;: 9, &#39;d&#39;: 10, &#39;e&#39;: 11, &#39;\n&#39;: 12, &#39;h&#39;: 13, &#39;.&#39;: 14, &#39;9&#39;: 15, &#39;o&#39;: 16, &#39;t&#39;: 17, &#39; &#39;: 18, &#34;&#39;&#34;: 19, &#39;x&#39;: 20, &#39;q&#39;: 21, &#39;%&#39;: 22, &#39;w&#39;: 23, &#39;b&#39;: 24, &#39;r&#39;: 25, &#39;l&#39;: 26, &#39;,&#39;: 27, &#39;g&#39;: 28, &#39;c&#39;: 29, &#39;u&#39;: 30, &#39;v&#39;: 31, &#39;7&#39;: 32, &#39;/&#39;: 33, &#39;m&#39;: 34, &#39;6&#39;: 35, &#39;j&#39;: 36, &#39;s&#39;: 37, &#39;&#34;&#39;: 38, &#39;z&#39;: 39, &#39;f&#39;: 40}
+
+int_to_vocab {0: &#39;a&#39;, 1: &#39;p&#39;, 2: &#39;i&#39;, 3: &#39;:&#39;, 4: &#39;y&#39;, 5: &#39;0&#39;, 6: &#39;;&#39;, 7: &#39;3&#39;, 8: &#39;n&#39;, 9: &#39;k&#39;, 10: &#39;d&#39;, 11: &#39;e&#39;, 12: &#39;\n&#39;, 13: &#39;h&#39;, 14: &#39;.&#39;, 15: &#39;9&#39;, 16: &#39;o&#39;, 17: &#39;t&#39;, 18: &#39; &#39;, 19: &#34;&#39;&#34;, 20: &#39;x&#39;, 21: &#39;q&#39;, 22: &#39;%&#39;, 23: &#39;w&#39;, 24: &#39;b&#39;, 25: &#39;r&#39;, 26: &#39;l&#39;, 27: &#39;,&#39;, 28: &#39;g&#39;, 29: &#39;c&#39;, 30: &#39;u&#39;, 31: &#39;v&#39;, 32: &#39;7&#39;, 33: &#39;/&#39;, 34: &#39;m&#39;, 35: &#39;6&#39;, 36: &#39;j&#39;, 37: &#39;s&#39;, 38: &#39;&#34;&#39;, 39: &#39;z&#39;, 40: &#39;f&#39;}
+
+int for e: 11
+letter for 11: e
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="prompt input_prompt">In&nbsp;[8]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># to find functions starting with &#39;l&#39;</span>
-a.l*<span class="o">?</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">encoded</span> <span class="o">=</span> <span class="p">[</span><span class="n">vocab_to_int</span><span class="p">[</span><span class="n">l</span><span class="p">]</span> <span class="k">for</span> <span class="n">l</span> <span class="ow">in</span> <span class="n">text</span><span class="p">]</span>
+<span class="n">encoded_sentence</span> <span class="o">=</span> <span class="n">encoded</span><span class="p">[:</span><span class="mi">100</span><span class="p">]</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">encoded_sentence</span><span class="p">)</span>
 </pre></div>
 
     </div>
 </div>
 </div>
 
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>[34, 0, 10, 0, 34, 11, 18, 37, 1, 11, 0, 9, 11, 25, 27, 18, 34, 25, 14, 18, 31, 2, 29, 11, 18, 1, 25, 11, 37, 2, 10, 11, 8, 17, 27, 18, 34, 11, 34, 24, 11, 25, 37, 18, 16, 40, 18, 29, 16, 8, 28, 25, 11, 37, 37, 27, 18, 0, 8, 10, 18, 17, 13, 11, 18, 40, 2, 25, 37, 17, 18, 26, 0, 10, 4, 18, 16, 40, 12, 17, 13, 11, 18, 30, 8, 2, 17, 11, 10, 18, 37, 17, 0, 17, 11, 37, 3, 12, 12, 2]
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="prompt input_prompt">In&nbsp;[9]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># To get more info on a function</span>
-a.lstrip<span class="o">?</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">decoded_sentence</span> <span class="o">=</span> <span class="p">[</span><span class="n">int_to_vocab</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">encoded_sentence</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">decoded_sentence</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>[&#39;m&#39;, &#39;a&#39;, &#39;d&#39;, &#39;a&#39;, &#39;m&#39;, &#39;e&#39;, &#39; &#39;, &#39;s&#39;, &#39;p&#39;, &#39;e&#39;, &#39;a&#39;, &#39;k&#39;, &#39;e&#39;, &#39;r&#39;, &#39;,&#39;, &#39; &#39;, &#39;m&#39;, &#39;r&#39;, &#39;.&#39;, &#39; &#39;, &#39;v&#39;, &#39;i&#39;, &#39;c&#39;, &#39;e&#39;, &#39; &#39;, &#39;p&#39;, &#39;r&#39;, &#39;e&#39;, &#39;s&#39;, &#39;i&#39;, &#39;d&#39;, &#39;e&#39;, &#39;n&#39;, &#39;t&#39;, &#39;,&#39;, &#39; &#39;, &#39;m&#39;, &#39;e&#39;, &#39;m&#39;, &#39;b&#39;, &#39;e&#39;, &#39;r&#39;, &#39;s&#39;, &#39; &#39;, &#39;o&#39;, &#39;f&#39;, &#39; &#39;, &#39;c&#39;, &#39;o&#39;, &#39;n&#39;, &#39;g&#39;, &#39;r&#39;, &#39;e&#39;, &#39;s&#39;, &#39;s&#39;, &#39;,&#39;, &#39; &#39;, &#39;a&#39;, &#39;n&#39;, &#39;d&#39;, &#39; &#39;, &#39;t&#39;, &#39;h&#39;, &#39;e&#39;, &#39; &#39;, &#39;f&#39;, &#39;i&#39;, &#39;r&#39;, &#39;s&#39;, &#39;t&#39;, &#39; &#39;, &#39;l&#39;, &#39;a&#39;, &#39;d&#39;, &#39;y&#39;, &#39; &#39;, &#39;o&#39;, &#39;f&#39;, &#39;\n&#39;, &#39;t&#39;, &#39;h&#39;, &#39;e&#39;, &#39; &#39;, &#39;u&#39;, &#39;n&#39;, &#39;i&#39;, &#39;t&#39;, &#39;e&#39;, &#39;d&#39;, &#39; &#39;, &#39;s&#39;, &#39;t&#39;, &#39;a&#39;, &#39;t&#39;, &#39;e&#39;, &#39;s&#39;, &#39;:&#39;, &#39;\n&#39;, &#39;\n&#39;, &#39;i&#39;]
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[10]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">decoded_sentence</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">decoded_sentence</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">decoded_sentence</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>madame speaker, mr. vice president, members of congress, and the first lady of
+the united states:
+
+i
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="3.3---Genrate-batch">3.3 - Genrate batch<a class="anchor-link" href="#3.3---Genrate-batch">&#182;</a></h2><h3 id="Sample-of-one-batch">Sample of one batch<a class="anchor-link" href="#Sample-of-one-batch">&#182;</a></h3><p><img src="../assets/images/rnn_letter.png"></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[11]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">inputs</span><span class="p">,</span> <span class="n">targets</span> <span class="o">=</span> <span class="n">encoded</span><span class="p">,</span> <span class="n">encoded</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Inputs&quot;</span><span class="p">,</span> <span class="n">inputs</span><span class="p">[:</span><span class="mi">10</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Targets&quot;</span><span class="p">,</span> <span class="n">targets</span><span class="p">[:</span><span class="mi">10</span><span class="p">])</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Inputs [34, 0, 10, 0, 34, 11, 18, 37, 1, 11]
+Targets [0, 10, 0, 34, 11, 18, 37, 1, 11, 0]
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Method-used-to-generate-batch-in-sequence-order">Method used to generate batch in sequence order<a class="anchor-link" href="#Method-used-to-generate-batch-in-sequence-order">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[12]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">gen_batch</span><span class="p">(</span><span class="n">inputs</span><span class="p">,</span> <span class="n">targets</span><span class="p">,</span> <span class="n">seq_len</span><span class="p">,</span> <span class="n">batch_size</span><span class="p">,</span> <span class="n">noise</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+    <span class="c1"># Size of each chunk</span>
+    <span class="n">chuck_size</span> <span class="o">=</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">inputs</span><span class="p">)</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>  <span class="o">//</span> <span class="n">batch_size</span>
+    <span class="c1"># Numbef of sequence per chunk</span>
+    <span class="n">sequences_per_chunk</span> <span class="o">=</span> <span class="n">chuck_size</span> <span class="o">//</span> <span class="n">seq_len</span>
+
+    <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">sequences_per_chunk</span><span class="p">):</span>
+        <span class="n">batch_inputs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">batch_size</span><span class="p">,</span> <span class="n">seq_len</span><span class="p">))</span>
+        <span class="n">batch_targets</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">batch_size</span><span class="p">,</span> <span class="n">seq_len</span><span class="p">))</span>
+        <span class="k">for</span> <span class="n">b</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">batch_size</span><span class="p">):</span>
+            <span class="n">fr</span> <span class="o">=</span> <span class="p">(</span><span class="n">b</span><span class="o">*</span><span class="n">chuck_size</span><span class="p">)</span><span class="o">+</span><span class="p">(</span><span class="n">s</span><span class="o">*</span><span class="n">seq_len</span><span class="p">)</span>
+            <span class="n">to</span> <span class="o">=</span> <span class="n">fr</span><span class="o">+</span><span class="n">seq_len</span>
+            <span class="n">batch_inputs</span><span class="p">[</span><span class="n">b</span><span class="p">]</span> <span class="o">=</span> <span class="n">inputs</span><span class="p">[</span><span class="n">fr</span><span class="p">:</span><span class="n">to</span><span class="p">]</span>
+            <span class="n">batch_targets</span><span class="p">[</span><span class="n">b</span><span class="p">]</span> <span class="o">=</span> <span class="n">inputs</span><span class="p">[</span><span class="n">fr</span><span class="o">+</span><span class="mi">1</span><span class="p">:</span><span class="n">to</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span>
+            
+            <span class="k">if</span> <span class="n">noise</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">noise_indices</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">seq_len</span><span class="p">,</span> <span class="n">noise</span><span class="p">)</span>
+                <span class="n">batch_inputs</span><span class="p">[</span><span class="n">b</span><span class="p">][</span><span class="n">noise_indices</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">vocab_size</span><span class="p">)</span>
+            
+        <span class="k">yield</span> <span class="n">batch_inputs</span><span class="p">,</span> <span class="n">batch_targets</span>
+
+<span class="k">for</span> <span class="n">batch_inputs</span><span class="p">,</span> <span class="n">batch_targets</span> <span class="ow">in</span> <span class="n">gen_batch</span><span class="p">(</span><span class="n">inputs</span><span class="p">,</span> <span class="n">targets</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">32</span><span class="p">,</span> <span class="n">noise</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">batch_inputs</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">batch_targets</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="k">break</span>
+
+<span class="k">for</span> <span class="n">batch_inputs</span><span class="p">,</span> <span class="n">batch_targets</span> <span class="ow">in</span> <span class="n">gen_batch</span><span class="p">(</span><span class="n">inputs</span><span class="p">,</span> <span class="n">targets</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">32</span><span class="p">,</span> <span class="n">noise</span><span class="o">=</span><span class="mi">3</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">batch_inputs</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">batch_targets</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="k">break</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>[34.  0. 10.  0. 34.] [ 0. 10.  0. 34. 11.]
+[34. 16. 10.  0. 16.] [ 0. 10.  0. 34. 11.]
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Step-4:-Create-model">Step 4: Create model<a class="anchor-link" href="#Step-4:-Create-model">&#182;</a></h2><h3 id="4.1---Create-your-own-layer">4.1 - Create your own layer<a class="anchor-link" href="#4.1---Create-your-own-layer">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[13]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">class</span> <span class="nc">OneHot</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Layer</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">depth</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">OneHot</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">depth</span> <span class="o">=</span> <span class="n">depth</span>
+
+    <span class="k">def</span> <span class="nf">call</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">tf</span><span class="o">.</span><span class="n">one_hot</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">cast</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">tf</span><span class="o">.</span><span class="n">int32</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">depth</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -13304,20 +13657,162 @@ a.lstrip<span class="o">?</span>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="5---Profile:-Measure-time-taken">5 - Profile: Measure time taken<a class="anchor-link" href="#5---Profile:-Measure-time-taken">&#182;</a></h2><p>Use <strong>%%time</strong> construct</p>
+<p>Test if the layer works well</p>
 
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="prompt input_prompt">In&nbsp;[14]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%time</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">class</span> <span class="nc">RnnModel</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
 
-<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">10000000</span><span class="p">):</span>
-    <span class="k">pass</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">vocab_size</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">RnnModel</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="c1"># Convolutions</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">one_hot</span> <span class="o">=</span> <span class="n">OneHot</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">vocab</span><span class="p">))</span>
+
+    <span class="k">def</span> <span class="nf">call</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">inputs</span><span class="p">):</span>
+        <span class="n">output</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">one_hot</span><span class="p">(</span><span class="n">inputs</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">output</span>
+
+<span class="n">batch_inputs</span><span class="p">,</span> <span class="n">batch_targets</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="n">gen_batch</span><span class="p">(</span><span class="n">inputs</span><span class="p">,</span> <span class="n">targets</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">32</span><span class="p">))</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">batch_inputs</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+
+<span class="n">model</span> <span class="o">=</span> <span class="n">RnnModel</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">vocab</span><span class="p">))</span>
+<span class="n">output</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">batch_inputs</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">output</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+
+<span class="c1">#print(output)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Input letter is:&quot;</span><span class="p">,</span> <span class="n">batch_inputs</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;One hot representation of the letter&quot;</span><span class="p">,</span> <span class="n">output</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
+
+<span class="c1">#assert(output[int(batch_inputs[0][0])]==1)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>(32, 50)
+WARNING:tensorflow:Entity &lt;bound method RnnModel.call of &lt;__main__.RnnModel object at 0x7f4a7bd9de10&gt;&gt; could not be transformed and will be executed as-is. Please report this to the AutoGraph team. When filing the bug, set the verbosity to 10 (on Linux, `export AUTOGRAPH_VERBOSITY=10`) and attach the full output. Cause: Bad argument number for Name: 3, expecting 4
+WARNING: Entity &lt;bound method RnnModel.call of &lt;__main__.RnnModel object at 0x7f4a7bd9de10&gt;&gt; could not be transformed and will be executed as-is. Please report this to the AutoGraph team. When filing the bug, set the verbosity to 10 (on Linux, `export AUTOGRAPH_VERBOSITY=10`) and attach the full output. Cause: Bad argument number for Name: 3, expecting 4
+WARNING:tensorflow:Entity &lt;bound method OneHot.call of &lt;__main__.OneHot object at 0x7f4a80e20950&gt;&gt; could not be transformed and will be executed as-is. Please report this to the AutoGraph team. When filing the bug, set the verbosity to 10 (on Linux, `export AUTOGRAPH_VERBOSITY=10`) and attach the full output. Cause: Bad argument number for Name: 3, expecting 4
+WARNING: Entity &lt;bound method OneHot.call of &lt;__main__.OneHot object at 0x7f4a80e20950&gt;&gt; could not be transformed and will be executed as-is. Please report this to the AutoGraph team. When filing the bug, set the verbosity to 10 (on Linux, `export AUTOGRAPH_VERBOSITY=10`) and attach the full output. Cause: Bad argument number for Name: 3, expecting 4
+(32, 50, 41)
+Input letter is: 34.0
+One hot representation of the letter [0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0.
+ 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 1. 0. 0. 0. 0. 0. 0.]
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="4.2---Setup-the-model">4.2 - Setup the model<a class="anchor-link" href="#4.2---Setup-the-model">&#182;</a></h3><p><img src="../assets/images/architecture_rnn.png"></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[15]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">vocab_size</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">vocab</span><span class="p">)</span>
+
+<span class="c1">### Creat the layers</span>
+
+<span class="c1"># Set the input of the model</span>
+<span class="n">tf_inputs</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">Input</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="kc">None</span><span class="p">,),</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">64</span><span class="p">)</span>
+<span class="c1"># Convert each value of the  input into a one encoding vector</span>
+<span class="n">one_hot</span> <span class="o">=</span> <span class="n">OneHot</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">vocab</span><span class="p">))(</span><span class="n">tf_inputs</span><span class="p">)</span>
+<span class="c1"># Stack LSTM cells</span>
+<span class="n">rnn_layer1</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">LSTM</span><span class="p">(</span><span class="mi">128</span><span class="p">,</span> <span class="n">return_sequences</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">stateful</span><span class="o">=</span><span class="kc">True</span><span class="p">)(</span><span class="n">one_hot</span><span class="p">)</span>
+<span class="n">rnn_layer2</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">LSTM</span><span class="p">(</span><span class="mi">128</span><span class="p">,</span> <span class="n">return_sequences</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">stateful</span><span class="o">=</span><span class="kc">True</span><span class="p">)(</span><span class="n">rnn_layer1</span><span class="p">)</span>
+<span class="c1"># Create the outputs of the model</span>
+<span class="n">hidden_layer</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">128</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s2">&quot;relu&quot;</span><span class="p">)(</span><span class="n">rnn_layer2</span><span class="p">)</span>
+<span class="n">outputs</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="n">vocab_size</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s2">&quot;softmax&quot;</span><span class="p">)(</span><span class="n">hidden_layer</span><span class="p">)</span>
+
+<span class="c1">### Setup the model</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">Model</span><span class="p">(</span><span class="n">inputs</span><span class="o">=</span><span class="n">tf_inputs</span><span class="p">,</span> <span class="n">outputs</span><span class="o">=</span><span class="n">outputs</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>WARNING:tensorflow:Entity &lt;bound method OneHot.call of &lt;__main__.OneHot object at 0x7f4a7bd7be90&gt;&gt; could not be transformed and will be executed as-is. Please report this to the AutoGraph team. When filing the bug, set the verbosity to 10 (on Linux, `export AUTOGRAPH_VERBOSITY=10`) and attach the full output. Cause: Bad argument number for Name: 3, expecting 4
+WARNING: Entity &lt;bound method OneHot.call of &lt;__main__.OneHot object at 0x7f4a7bd7be90&gt;&gt; could not be transformed and will be executed as-is. Please report this to the AutoGraph team. When filing the bug, set the verbosity to 10 (on Linux, `export AUTOGRAPH_VERBOSITY=10`) and attach the full output. Cause: Bad argument number for Name: 3, expecting 4
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="4.3---Check-if-we-can-reset-the-RNN-cells">4.3 - Check if we can reset the RNN cells<a class="anchor-link" href="#4.3---Check-if-we-can-reset-the-RNN-cells">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[16]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Star by resetting the cells of the RNN</span>
+<span class="n">model</span><span class="o">.</span><span class="n">reset_states</span><span class="p">()</span>
+
+<span class="c1"># Get one batch</span>
+<span class="n">batch_inputs</span><span class="p">,</span> <span class="n">batch_targets</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="n">gen_batch</span><span class="p">(</span><span class="n">inputs</span><span class="p">,</span> <span class="n">targets</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">64</span><span class="p">))</span>
+
+<span class="c1"># Make a first prediction</span>
+<span class="n">outputs</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">batch_inputs</span><span class="p">)</span>
+<span class="n">first_prediction</span> <span class="o">=</span> <span class="n">outputs</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+
+<span class="c1"># Reset the states of the RNN states</span>
+<span class="n">model</span><span class="o">.</span><span class="n">reset_states</span><span class="p">()</span>
+
+<span class="c1"># Make an other prediction to check the difference</span>
+<span class="n">outputs</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">batch_inputs</span><span class="p">)</span>
+<span class="n">second_prediction</span> <span class="o">=</span> <span class="n">outputs</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+
+<span class="c1"># Check if both prediction are equal</span>
+<span class="k">assert</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">first_prediction</span><span class="p">)</span><span class="o">==</span><span class="nb">set</span><span class="p">(</span><span class="n">second_prediction</span><span class="p">))</span>
 </pre></div>
 
     </div>
@@ -13328,55 +13823,154 @@ a.lstrip<span class="o">?</span>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="6---Execute-All-Cells">6 - Execute All Cells<a class="anchor-link" href="#6---Execute-All-Cells">&#182;</a></h2><p>Click on <strong>'Cell --&gt; Execute All'</strong>  to run all code cells</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="7---Restart-the-Kernel">7 - Restart the Kernel<a class="anchor-link" href="#7---Restart-the-Kernel">&#182;</a></h2><p>If your kernel is not initialized properly, or you want a clean run of your notebook<br>
-Go to <strong>'Kernel --&gt; Restart'</strong></p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="8---Download-Jupyter-Notebook">8 - Download Jupyter Notebook<a class="anchor-link" href="#8---Download-Jupyter-Notebook">&#182;</a></h2><p>Go to 'File --&gt; Download As'  and try to download the notebook in the following formats</p>
-<ul>
-<li>Jupyter Notebook</li>
-<li>Python</li>
-<li>HTML</li>
-<li>Markdown</li>
-<li>PDF</li>
-</ul>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="9---Clean-Halt-the-Notebook">9 - Clean Halt the Notebook<a class="anchor-link" href="#9---Clean-Halt-the-Notebook">&#182;</a></h2><p>Go to <strong>'File --&gt; Close and Halt'</strong></p>
-
+<h3 id="4.4---Set-the-loss-and-objectives">4.4 - Set the loss and objectives<a class="anchor-link" href="#4.4---Set-the-loss-and-objectives">&#182;</a></h3>
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="prompt input_prompt">In&nbsp;[17]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span> 
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">loss_object</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">losses</span><span class="o">.</span><span class="n">SparseCategoricalCrossentropy</span><span class="p">()</span>
+<span class="n">optimizer</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">optimizers</span><span class="o">.</span><span class="n">Adam</span><span class="p">(</span><span class="n">lr</span><span class="o">=</span><span class="mf">0.001</span><span class="p">)</span>
 </pre></div>
 
     </div>
 </div>
 </div>
 
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="4.5---Set-some-metrics-to-track-the-progress-of-the-training">4.5 - Set some metrics to track the progress of the training<a class="anchor-link" href="#4.5---Set-some-metrics-to-track-the-progress-of-the-training">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[18]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Loss</span>
+<span class="n">train_loss</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">metrics</span><span class="o">.</span><span class="n">Mean</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;train_loss&#39;</span><span class="p">)</span>
+<span class="c1"># Accuracy</span>
+<span class="n">train_accuracy</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">metrics</span><span class="o">.</span><span class="n">SparseCategoricalAccuracy</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;train_accuracy&#39;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="4.6---Set-the-train-method-and-the-predict-method-in-graph-mode">4.6 - Set the train method and the predict method in graph mode<a class="anchor-link" href="#4.6---Set-the-train-method-and-the-predict-method-in-graph-mode">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[19]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nd">@tf</span><span class="o">.</span><span class="n">function</span>
+<span class="k">def</span> <span class="nf">train_step</span><span class="p">(</span><span class="n">inputs</span><span class="p">,</span> <span class="n">targets</span><span class="p">):</span>
+    <span class="k">with</span> <span class="n">tf</span><span class="o">.</span><span class="n">GradientTape</span><span class="p">()</span> <span class="k">as</span> <span class="n">tape</span><span class="p">:</span>
+        <span class="c1"># Make a prediction on all the batch</span>
+        <span class="n">predictions</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">inputs</span><span class="p">)</span>
+        <span class="c1"># Get the error/loss on these predictions</span>
+        <span class="n">loss</span> <span class="o">=</span> <span class="n">loss_object</span><span class="p">(</span><span class="n">targets</span><span class="p">,</span> <span class="n">predictions</span><span class="p">)</span>
+    <span class="c1"># Compute the gradient which respect to the loss</span>
+    <span class="n">gradients</span> <span class="o">=</span> <span class="n">tape</span><span class="o">.</span><span class="n">gradient</span><span class="p">(</span><span class="n">loss</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">trainable_variables</span><span class="p">)</span>
+    <span class="c1"># Change the weights of the model</span>
+    <span class="n">optimizer</span><span class="o">.</span><span class="n">apply_gradients</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">gradients</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">trainable_variables</span><span class="p">))</span>
+    <span class="c1"># The metrics are accumulate over time. You don&#39;t need to average it yourself.</span>
+    <span class="n">train_loss</span><span class="p">(</span><span class="n">loss</span><span class="p">)</span>
+    <span class="n">train_accuracy</span><span class="p">(</span><span class="n">targets</span><span class="p">,</span> <span class="n">predictions</span><span class="p">)</span>
+
+<span class="nd">@tf</span><span class="o">.</span><span class="n">function</span>
+<span class="k">def</span> <span class="nf">predict</span><span class="p">(</span><span class="n">inputs</span><span class="p">):</span>
+    <span class="c1"># Make a prediction on all the batch</span>
+    <span class="n">predictions</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">inputs</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">predictions</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Step-6:-Train-the-model">Step 6: Train the model<a class="anchor-link" href="#Step-6:-Train-the-model">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[20]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">model</span><span class="o">.</span><span class="n">reset_states</span><span class="p">()</span>
+
+<span class="k">for</span> <span class="n">epoch</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">4000</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">batch_inputs</span><span class="p">,</span> <span class="n">batch_targets</span> <span class="ow">in</span> <span class="n">gen_batch</span><span class="p">(</span><span class="n">inputs</span><span class="p">,</span> <span class="n">targets</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">64</span><span class="p">,</span> <span class="n">noise</span><span class="o">=</span><span class="mi">13</span><span class="p">):</span>
+        <span class="n">train_step</span><span class="p">(</span><span class="n">batch_inputs</span><span class="p">,</span> <span class="n">batch_targets</span><span class="p">)</span>
+    <span class="n">template</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="se">\r</span><span class="s1"> Epoch </span><span class="si">{}</span><span class="s1">, Train Loss: </span><span class="si">{}</span><span class="s1">, Train Accuracy: </span><span class="si">{}</span><span class="s1">&#39;</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">template</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">epoch</span><span class="p">,</span> <span class="n">train_loss</span><span class="o">.</span><span class="n">result</span><span class="p">(),</span> <span class="n">train_accuracy</span><span class="o">.</span><span class="n">result</span><span class="p">()</span><span class="o">*</span><span class="mi">100</span><span class="p">),</span> <span class="n">end</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">reset_states</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>WARNING:tensorflow:Entity &lt;function train_step at 0x7f4a5adbbe60&gt; could not be transformed and will be executed as-is. Please report this to the AutoGraph team. When filing the bug, set the verbosity to 10 (on Linux, `export AUTOGRAPH_VERBOSITY=10`) and attach the full output. Cause: module &#39;gast&#39; has no attribute &#39;Str&#39;
+WARNING: Entity &lt;function train_step at 0x7f4a5adbbe60&gt; could not be transformed and will be executed as-is. Please report this to the AutoGraph team. When filing the bug, set the verbosity to 10 (on Linux, `export AUTOGRAPH_VERBOSITY=10`) and attach the full output. Cause: module &#39;gast&#39; has no attribute &#39;Str&#39;
+WARNING:tensorflow:Layer one_hot_1 is casting an input tensor from dtype float64 to the layer&#39;s dtype of float32, which is new behavior in TensorFlow 2.  The layer has dtype float32 because it&#39;s dtype defaults to floatx.
+
+If you intended to run this layer in float32, you can safely ignore this warning. If in doubt, this warning is likely only an issue if you are porting a TensorFlow 1.X model to TensorFlow 2.
+
+To change all layers to have dtype float64 by default, call `tf.keras.backend.set_floatx(&#39;float64&#39;)`. To change just this layer, pass dtype=&#39;float64&#39; to the layer constructor. If you are the author of this layer, you can disable autocasting by passing autocast=False to the base Layer constructor.
+
+WARNING:tensorflow:Entity &lt;bound method OneHot.call of &lt;__main__.OneHot object at 0x7f4a7bd7be90&gt;&gt; could not be transformed and will be executed as-is. Please report this to the AutoGraph team. When filing the bug, set the verbosity to 10 (on Linux, `export AUTOGRAPH_VERBOSITY=10`) and attach the full output. Cause: Bad argument number for Name: 3, expecting 4
+WARNING: Entity &lt;bound method OneHot.call of &lt;__main__.OneHot object at 0x7f4a7bd7be90&gt;&gt; could not be transformed and will be executed as-is. Please report this to the AutoGraph team. When filing the bug, set the verbosity to 10 (on Linux, `export AUTOGRAPH_VERBOSITY=10`) and attach the full output. Cause: Bad argument number for Name: 3, expecting 4
+WARNING:tensorflow:From /home/ubuntu/apps/anaconda/envs/tf2/lib/python3.7/site-packages/tensorflow_core/python/ops/math_grad.py:1394: where (from tensorflow.python.ops.array_ops) is deprecated and will be removed in a future version.
+Instructions for updating:
+Use tf.where in 2.0, which has the same broadcast rule as np.where
+WARNING:tensorflow:Entity &lt;function Function._initialize_uninitialized_variables.&lt;locals&gt;.initialize_variables at 0x7f4a546c4e60&gt; could not be transformed and will be executed as-is. Please report this to the AutoGraph team. When filing the bug, set the verbosity to 10 (on Linux, `export AUTOGRAPH_VERBOSITY=10`) and attach the full output. Cause: module &#39;gast&#39; has no attribute &#39;Num&#39;
+WARNING: Entity &lt;function Function._initialize_uninitialized_variables.&lt;locals&gt;.initialize_variables at 0x7f4a546c4e60&gt; could not be transformed and will be executed as-is. Please report this to the AutoGraph team. When filing the bug, set the verbosity to 10 (on Linux, `export AUTOGRAPH_VERBOSITY=10`) and attach the full output. Cause: module &#39;gast&#39; has no attribute &#39;Num&#39;
+WARNING:tensorflow:Entity &lt;bound method OneHot.call of &lt;__main__.OneHot object at 0x7f4a7bd7be90&gt;&gt; could not be transformed and will be executed as-is. Please report this to the AutoGraph team. When filing the bug, set the verbosity to 10 (on Linux, `export AUTOGRAPH_VERBOSITY=10`) and attach the full output. Cause: Bad argument number for Name: 3, expecting 4
+WARNING: Entity &lt;bound method OneHot.call of &lt;__main__.OneHot object at 0x7f4a7bd7be90&gt;&gt; could not be transformed and will be executed as-is. Please report this to the AutoGraph team. When filing the bug, set the verbosity to 10 (on Linux, `export AUTOGRAPH_VERBOSITY=10`) and attach the full output. Cause: Bad argument number for Name: 3, expecting 4
+ Epoch 3999, Train Loss: 0.7701197266578674, Train Accuracy: 77.640396118164065</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Source:">Source:<a class="anchor-link" href="#Source:">&#182;</a></h3><p><a href="https://github.com/thibo73800/tensorflow2.0-examples/blob/master/RNN%20-%20Text%20Generator.html">https://github.com/thibo73800/tensorflow2.0-examples/blob/master/RNN%20-%20Text%20Generator.html</a></p>
+
+</div>
+</div>
 </div>
     </div>
   </div>

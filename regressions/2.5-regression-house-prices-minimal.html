@@ -2,7 +2,7 @@
 <html>
 <head><meta charset="utf-8" />
 
-<title>hello-jupyter</title>
+<title>2.5-regression-house-prices-minimal</title>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
@@ -13116,82 +13116,33 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Hello-Jupyter">Hello Jupyter<a class="anchor-link" href="#Hello-Jupyter">&#182;</a></h1><h3 id="Goal">Goal<a class="anchor-link" href="#Goal">&#182;</a></h3><p>Get familiar with Jupyter Notebook</p>
-<p><img src="../assets/images/jupyter.png"/></p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="1:-Create-a-code-cell">1: Create a code cell<a class="anchor-link" href="#1:-Create-a-code-cell">&#182;</a></h2><p>Click on the '+' button on the tool bar above.<br>
-It will create a new cell below here.<br>
-Type the following code into the cell.</p>
-<div class="highlight"><pre><span></span><span class="k">print</span><span class="p">(</span><span class="s2">&quot;Hello world&quot;</span><span class="p">)</span>
-</pre></div>
-<p>And click on 'Run' button to execute.</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="2:-Multiple-Code-Cells">2: Multiple Code Cells<a class="anchor-link" href="#2:-Multiple-Code-Cells">&#182;</a></h2><p>Go ahead and create mutiple code cells below.<br>
-And add the code below in each cell.</p>
-<p>cell 1</p>
-<div class="highlight"><pre><span></span><span class="k">print</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-</pre></div>
-<p>cell 2</p>
-<div class="highlight"><pre><span></span><span class="k">print</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-</pre></div>
-<p>cell 3</p>
-<div class="highlight"><pre><span></span><span class="k">print</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
-</pre></div>
-
+<h1 id="House-Prices-Regressions---Minimal-code">House Prices Regressions - Minimal code<a class="anchor-link" href="#House-Prices-Regressions---Minimal-code">&#182;</a></h1>
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="prompt input_prompt">In&nbsp;[1]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># code cell</span>
-</pre></div>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">absolute_import</span><span class="p">,</span> <span class="n">division</span><span class="p">,</span> <span class="n">print_function</span>
 
-    </div>
-</div>
-</div>
+<span class="o">%</span><span class="k">matplotlib</span> inline
 
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>Re-order</strong> code cells, so it prints<br>
-2<br>
-3<br>
-1<br>
-Hint : Use 'up' / 'down' buttons in toolbar</p>
+<span class="kn">import</span> <span class="nn">pathlib</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+<span class="kn">import</span> <span class="nn">datetime</span>
 
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="3:-Tab-Completion">3: Tab Completion<a class="anchor-link" href="#3:-Tab-Completion">&#182;</a></h2><p>Tab completion is a wonderful feature</p>
+<span class="k">try</span><span class="p">:</span>
+  <span class="c1"># %tensorflow_version only exists in Colab.</span>
+  <span class="o">%</span><span class="k">tensorflow_version</span> 2.x
+<span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+  <span class="k">pass</span>
 
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="s2">&quot;Hello World&quot;</span>
+<span class="kn">import</span> <span class="nn">tensorflow</span> <span class="k">as</span> <span class="nn">tf</span>
+<span class="kn">from</span> <span class="nn">tensorflow</span> <span class="k">import</span> <span class="n">keras</span>
 </pre></div>
 
     </div>
@@ -13201,57 +13152,19 @@ Hint : Use 'up' / 'down' buttons in toolbar</p>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="prompt input_prompt">In&nbsp;[2]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Execute the above cell </span>
-<span class="c1"># now let&#39;s find all the methods in A</span>
-<span class="n">a</span><span class="o">.</span><span class="p">[</span><span class="n">TAB</span><span class="p">]</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">data_location</span> <span class="o">=</span> <span class="s1">&#39;/data/house-prices/house-sales-full.csv&#39;</span>
+<span class="c1"># data_location = &#39;https://elephantscale-public.s3.amazonaws.com/data/house-prices/house-sales-full.csv&#39;</span>
 
-<span class="c1">## find the  method to lowercase the string and print it</span>
-</pre></div>
+<span class="n">house_prices</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">data_location</span><span class="p">)</span>
 
-    </div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>Use Shift Tab to find the variable type</strong></p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># a[SHIFT][TAB]</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="4---Getting-Help">4 - Getting Help<a class="anchor-link" href="#4---Getting-Help">&#182;</a></h2><p>Use '?' to get help</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="s2">&quot;Hello world&quot;</span>
-a<span class="o">?</span>
+<span class="n">input_columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Bedrooms&#39;</span><span class="p">,</span> <span class="s1">&#39;Bathrooms&#39;</span><span class="p">,</span> <span class="s1">&#39;SqFtTotLiving&#39;</span><span class="p">,</span> <span class="s1">&#39;SqFtLot&#39;</span><span class="p">]</span>
+<span class="n">label_column</span> <span class="o">=</span> <span class="s1">&#39;SalePrice&#39;</span>
+<span class="c1"># x = house_prices.loc[:, input_columns]</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">house_prices</span> <span class="p">[</span><span class="n">input_columns</span><span class="p">]</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">house_prices</span><span class="p">[[</span><span class="n">label_column</span><span class="p">]]</span>
 </pre></div>
 
     </div>
@@ -13261,11 +13174,23 @@ a<span class="o">?</span>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="prompt input_prompt">In&nbsp;[3]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># To find all functions</span>
-a.*<span class="o">?</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="k">import</span> <span class="n">train_test_split</span>
+
+<span class="c1">## split train/test = 80% / 20%</span>
+<span class="n">x_train</span><span class="p">,</span> <span class="n">x_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">test_size</span> <span class="o">=</span> <span class="mf">0.2</span><span class="p">,</span> <span class="n">random_state</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span>
+
+<span class="n">x_train_orig</span> <span class="o">=</span> <span class="n">x_train</span>
+<span class="n">x_test_orig</span> <span class="o">=</span> <span class="n">x_test</span>
+
+<span class="k">def</span> <span class="nf">my_scaler</span><span class="p">(</span><span class="n">df</span><span class="p">):</span>
+    <span class="c1">#return (df-df.min())/(df.max()-df.min())  ## this is min/max scaler</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">df</span> <span class="o">-</span> <span class="n">df</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span> <span class="o">/</span> <span class="n">df</span><span class="o">.</span><span class="n">std</span><span class="p">()</span>
+
+<span class="n">x_train</span> <span class="o">=</span> <span class="n">my_scaler</span><span class="p">(</span><span class="n">x_train_orig</span><span class="p">)</span>
+<span class="n">x_test</span> <span class="o">=</span> <span class="n">my_scaler</span> <span class="p">(</span><span class="n">x_test_orig</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -13275,105 +13200,299 @@ a.*<span class="o">?</span>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="prompt input_prompt">In&nbsp;[4]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># to find functions starting with &#39;l&#39;</span>
-a.l*<span class="o">?</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">input_dim</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">x_train</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">Sequential</span><span class="p">([</span>
+                <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="n">units</span><span class="o">=</span><span class="mi">64</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">relu</span><span class="p">,</span> <span class="n">input_shape</span><span class="o">=</span><span class="p">[</span><span class="n">input_dim</span><span class="p">],</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;input_layer&quot;</span><span class="p">),</span>
+                <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="n">units</span><span class="o">=</span><span class="mi">64</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">relu</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;hidden_1&quot;</span><span class="p">),</span>
+                <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="n">units</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;output_layer&quot;</span><span class="p">)</span>
+            <span class="p">])</span>
+
+<span class="n">optimizer</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">optimizers</span><span class="o">.</span><span class="n">RMSprop</span><span class="p">(</span><span class="mf">0.01</span><span class="p">)</span>
+
+<span class="n">model</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">loss</span><span class="o">=</span><span class="s1">&#39;mean_squared_error&#39;</span><span class="p">,</span>
+                  <span class="n">optimizer</span><span class="o">=</span><span class="n">optimizer</span><span class="p">,</span>
+                  <span class="n">metrics</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;mean_absolute_error&#39;</span><span class="p">,</span> <span class="s1">&#39;mean_squared_error&#39;</span><span class="p">])</span>
+<span class="nb">print</span> <span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">summary</span><span class="p">())</span>
 </pre></div>
 
     </div>
 </div>
 </div>
 
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Model: &#34;sequential&#34;
+_________________________________________________________________
+Layer (type)                 Output Shape              Param #   
+=================================================================
+input_layer (Dense)          (None, 64)                320       
+_________________________________________________________________
+hidden_1 (Dense)             (None, 64)                4160      
+_________________________________________________________________
+output_layer (Dense)         (None, 1)                 65        
+=================================================================
+Total params: 4,545
+Trainable params: 4,545
+Non-trainable params: 0
+_________________________________________________________________
+None
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="prompt input_prompt">In&nbsp;[5]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># To get more info on a function</span>
-a.lstrip<span class="o">?</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">datetime</span>
+<span class="kn">import</span> <span class="nn">os</span>
+
+<span class="n">app_name</span> <span class="o">=</span> <span class="s1">&#39;house-prices-regression&#39;</span> <span class="c1"># you can change this, if you like</span>
+
+<span class="n">tb_top_level_dir</span><span class="o">=</span> <span class="s1">&#39;/tmp/tensorboard-logs&#39;</span>
+<span class="n">tensorboard_logs_dir</span><span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span> <span class="p">(</span><span class="n">tb_top_level_dir</span><span class="p">,</span> <span class="n">app_name</span><span class="p">,</span> 
+                                    <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%Y-%m-</span><span class="si">%d</span><span class="s2">--%H-%M-%S&quot;</span><span class="p">))</span>
+<span class="nb">print</span> <span class="p">(</span><span class="s2">&quot;Saving TB logs to : &quot;</span> <span class="p">,</span> <span class="n">tensorboard_logs_dir</span><span class="p">)</span>
+
+<span class="n">tensorboard_callback</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">callbacks</span><span class="o">.</span><span class="n">TensorBoard</span><span class="p">(</span><span class="n">log_dir</span><span class="o">=</span><span class="n">tensorboard_logs_dir</span><span class="p">,</span> <span class="n">histogram_freq</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="c1"># The patience parameter is the amount of epochs to check for improvement</span>
+<span class="n">early_stop</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">callbacks</span><span class="o">.</span><span class="n">EarlyStopping</span><span class="p">(</span><span class="n">monitor</span><span class="o">=</span><span class="s1">&#39;val_loss&#39;</span><span class="p">,</span> <span class="n">patience</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
 </pre></div>
 
     </div>
 </div>
 </div>
 
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Saving TB logs to :  /tmp/tensorboard-logs/house-prices-regression/2019-09-07--21-59-54
+</pre>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="5---Profile:-Measure-time-taken">5 - Profile: Measure time taken<a class="anchor-link" href="#5---Profile:-Measure-time-taken">&#182;</a></h2><p>Use <strong>%%time</strong> construct</p>
+</div>
 
 </div>
 </div>
+
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="prompt input_prompt">In&nbsp;[6]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%time</span>
 
-<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">10000000</span><span class="p">):</span>
-    <span class="k">pass</span>
+<span class="n">epochs</span> <span class="o">=</span> <span class="mi">100</span>
+<span class="nb">print</span> <span class="p">(</span><span class="s2">&quot;training starting ...&quot;</span><span class="p">)</span>
+<span class="c1">## TODO : to see training output set verbose=2</span>
+<span class="n">history</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span>
+              <span class="n">x_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span>
+              <span class="n">epochs</span><span class="o">=</span><span class="n">epochs</span><span class="p">,</span> <span class="n">validation_split</span> <span class="o">=</span> <span class="mf">0.2</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+              <span class="n">callbacks</span><span class="o">=</span><span class="p">[</span><span class="n">early_stop</span><span class="p">,</span> <span class="n">tensorboard_callback</span><span class="p">])</span>
+
+<span class="nb">print</span> <span class="p">(</span><span class="s2">&quot;training done.&quot;</span><span class="p">)</span>
 </pre></div>
 
     </div>
 </div>
 </div>
 
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>training starting ...
+WARNING:tensorflow:Falling back from v2 loop because of error: Failed to find data adapter that can handle input: &lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;, &lt;class &#39;NoneType&#39;&gt;
+training done.
+CPU times: user 1min, sys: 4.22 s, total: 1min 4s
+Wall time: 38.4 s
+</pre>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="6---Execute-All-Cells">6 - Execute All Cells<a class="anchor-link" href="#6---Execute-All-Cells">&#182;</a></h2><p>Click on <strong>'Cell --&gt; Execute All'</strong>  to run all code cells</p>
+</div>
 
 </div>
 </div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="7---Restart-the-Kernel">7 - Restart the Kernel<a class="anchor-link" href="#7---Restart-the-Kernel">&#182;</a></h2><p>If your kernel is not initialized properly, or you want a clean run of your notebook<br>
-Go to <strong>'Kernel --&gt; Restart'</strong></p>
 
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="8---Download-Jupyter-Notebook">8 - Download Jupyter Notebook<a class="anchor-link" href="#8---Download-Jupyter-Notebook">&#182;</a></h2><p>Go to 'File --&gt; Download As'  and try to download the notebook in the following formats</p>
-<ul>
-<li>Jupyter Notebook</li>
-<li>Python</li>
-<li>HTML</li>
-<li>Markdown</li>
-<li>PDF</li>
-</ul>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="9---Clean-Halt-the-Notebook">9 - Clean Halt the Notebook<a class="anchor-link" href="#9---Clean-Halt-the-Notebook">&#182;</a></h2><p>Go to <strong>'File --&gt; Close and Halt'</strong></p>
-
-</div>
-</div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="prompt input_prompt">In&nbsp;[7]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span> 
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%</span><span class="k">matplotlib</span> inline
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">history</span><span class="o">.</span><span class="n">history</span><span class="p">[</span><span class="s1">&#39;mean_squared_error&#39;</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;mse&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">history</span><span class="o">.</span><span class="n">history</span><span class="p">[</span><span class="s1">&#39;mean_absolute_error&#39;</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;mae&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 
     </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+
+
+<div class="output_png output_subarea ">
+<img src="data:image/png;base64,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
+"
+>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[8]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">metric_names</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">metrics_names</span>
+<span class="nb">print</span> <span class="p">(</span><span class="s2">&quot;model metrics : &quot;</span> <span class="p">,</span> <span class="n">metric_names</span><span class="p">)</span>
+<span class="n">metrics</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="n">x_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">metric</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">metric_names</span><span class="p">):</span>
+    <span class="nb">print</span> <span class="p">(</span><span class="s2">&quot;Metric : </span><span class="si">{}</span><span class="s2"> = </span><span class="si">{:,.2f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span> <span class="p">(</span><span class="n">metric_names</span><span class="p">[</span><span class="n">idx</span><span class="p">],</span> <span class="n">metrics</span><span class="p">[</span><span class="n">idx</span><span class="p">]))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>model metrics :  [&#39;loss&#39;, &#39;mean_absolute_error&#39;, &#39;mean_squared_error&#39;]
+WARNING:tensorflow:Falling back from v2 loop because of error: Failed to find data adapter that can handle input: &lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;, &lt;class &#39;NoneType&#39;&gt;
+Metric : loss = 62,927,823,367.09
+Metric : mean_absolute_error = 132,209.62
+Metric : mean_squared_error = 62,927,839,232.00
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[9]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">predictions</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">x_test</span><span class="p">)</span>
+<span class="n">predictions_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">x_test_orig</span><span class="p">)</span>  <span class="c1"># use the original one, not scaled</span>
+<span class="n">predictions_df</span><span class="p">[</span><span class="s1">&#39;actual_price&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">y_test</span>
+<span class="n">predictions_df</span><span class="p">[</span><span class="s1">&#39;predicted_price&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">predictions</span>
+<span class="n">predictions_df</span><span class="p">[</span><span class="s1">&#39;error&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">predictions_df</span><span class="p">[</span><span class="s1">&#39;actual_price&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">predictions_df</span><span class="p">[</span><span class="s1">&#39;predicted_price&#39;</span><span class="p">]</span> 
+<span class="n">predictions_df</span><span class="p">[</span><span class="s1">&#39;error_percentage&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">predictions_df</span><span class="p">[</span><span class="s1">&#39;error&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">abs</span><span class="p">()</span> <span class="o">*</span> <span class="mi">100</span> <span class="o">/</span> <span class="n">predictions_df</span><span class="p">[</span><span class="s1">&#39;actual_price&#39;</span><span class="p">]</span>
+<span class="n">benchmark</span> <span class="o">=</span> <span class="mi">5</span>  <span class="c1"># 5%</span>
+<span class="n">good_predictions</span> <span class="o">=</span> <span class="n">predictions_df</span><span class="p">[</span><span class="n">predictions_df</span><span class="p">[</span><span class="s1">&#39;error_percentage&#39;</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">benchmark</span><span class="p">]</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>WARNING:tensorflow:Falling back from v2 loop because of error: Failed to find data adapter that can handle input: &lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;, &lt;class &#39;NoneType&#39;&gt;
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[10]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">meeting_benchmark</span> <span class="o">=</span> <span class="n">good_predictions</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span><span class="mi">100</span> <span class="o">/</span> <span class="n">predictions_df</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+<span class="nb">print</span> <span class="p">(</span><span class="s2">&quot;number of predictions within benchmark error (</span><span class="si">{}</span><span class="s2">%) are  =  </span><span class="si">{:,}</span><span class="s2">  (</span><span class="si">{:.1f}% o</span><span class="s2">f total)&quot;</span><span class="o">.</span>
+       <span class="nb">format</span> <span class="p">(</span><span class="n">benchmark</span><span class="p">,</span> <span class="n">good_predictions</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">meeting_benchmark</span><span class="p">))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>number of predictions within benchmark error (5%) are  =  727  (13.4% of total)
+</pre>
+</div>
+</div>
+
 </div>
 </div>
 
