@@ -13239,7 +13239,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[5]:</div>
+<div class="prompt input_prompt">In&nbsp;[4]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">text</span><span class="p">))</span>
@@ -13297,7 +13297,7 @@ impact of this recession is real, and it is ev
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[6]:</div>
+<div class="prompt input_prompt">In&nbsp;[15]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">unidecode</span> 
@@ -13315,6 +13315,13 @@ impact of this recession is real, and it is ev
 <span class="n">text</span> <span class="o">=</span> <span class="n">text</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;?&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
 <span class="n">text</span> <span class="o">=</span> <span class="n">text</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;-&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
 <span class="n">text</span> <span class="o">=</span> <span class="n">text</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;$&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+
+<span class="c1"># text = text.replace(&quot;&#39;&quot;, &quot;&quot;)</span>
+<span class="n">text</span> <span class="o">=</span> <span class="n">text</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;;&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+<span class="n">text</span> <span class="o">=</span> <span class="n">text</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;&quot;&#39;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+<span class="c1"># text = text.replace(&#39;,&#39;, &quot;&quot;)</span>
+<span class="n">text</span> <span class="o">=</span> <span class="n">text</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+<span class="n">text</span> <span class="o">=</span> <span class="n">text</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
 
 <span class="n">text</span> <span class="o">=</span> <span class="n">text</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
 
@@ -13338,24 +13345,8 @@ impact of this recession is real, and it is ev
 
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>41 {&#39;a&#39;, &#39;p&#39;, &#39;i&#39;, &#39;:&#39;, &#39;y&#39;, &#39;0&#39;, &#39;;&#39;, &#39;3&#39;, &#39;n&#39;, &#39;k&#39;, &#39;d&#39;, &#39;e&#39;, &#39;\n&#39;, &#39;h&#39;, &#39;.&#39;, &#39;9&#39;, &#39;o&#39;, &#39;t&#39;, &#39; &#39;, &#34;&#39;&#34;, &#39;x&#39;, &#39;q&#39;, &#39;%&#39;, &#39;w&#39;, &#39;b&#39;, &#39;r&#39;, &#39;l&#39;, &#39;,&#39;, &#39;g&#39;, &#39;c&#39;, &#39;u&#39;, &#39;v&#39;, &#39;7&#39;, &#39;/&#39;, &#39;m&#39;, &#39;6&#39;, &#39;j&#39;, &#39;s&#39;, &#39;&#34;&#39;, &#39;z&#39;, &#39;f&#39;}
-madame speaker, mr. vice president, members of congress, and the first lady of
-the united states:
-
-i&#39;ve come here tonight not only to address the distinguished men and women in
-this great chamber, but to speak frankly and directly to the men and women who
-sent us here.
-
-i know that for many americans watching right now, the state of our economy is
-a concern that rises above all others.  and rightly so.  if you haven&#39;t been
-personally affected by this recession, you probably know someone who has  a
-friend; a neighbor; a member of your family.  you don&#39;t need to hear another
-list of statistics to know that our economy is in crisis, because you live it
-every day.  it&#39;s the worry you wake up with and the source of sleepless
-nights.  it&#39;s the job you thought you&#39;d retire from but now have lost; the
-business you built your dreams upon that&#39;s now hanging by a thread; the
-college acceptance letter your child had to put back in the envelope.  the
-impact of this recession is real, and it is ever
+<pre>35 {&#39;q&#39;, &#39;d&#39;, &#39;7&#39;, &#39;3&#39;, &#39;e&#39;, &#39;%&#39;, &#39;k&#39;, &#39;b&#39;, &#39;y&#39;, &#39;h&#39;, &#39;v&#39;, &#39;9&#39;, &#39;:&#39;, &#39;6&#39;, &#39;g&#39;, &#39;x&#39;, &#39; &#39;, &#39;f&#39;, &#39;.&#39;, &#39;p&#39;, &#39;i&#39;, &#39;z&#39;, &#39;0&#39;, &#39;t&#39;, &#39;m&#39;, &#39;j&#39;, &#39;a&#39;, &#39;u&#39;, &#39;l&#39;, &#39;c&#39;, &#39;r&#39;, &#39;w&#39;, &#39;o&#39;, &#39;n&#39;, &#39;s&#39;}
+madame speaker mr. vice president members of congress and the first lady ofthe united states:ive come here tonight not only to address the distinguished men and women inthis great chamber but to speak frankly and directly to the men and women whosent us here.i know that for many americans watching right now the state of our economy isa concern that rises above all others.  and rightly so.  if you havent beenpersonally affected by this recession you probably know someone who has  afriend a neighbor a member of your family.  you dont need to hear anotherlist of statistics to know that our economy is in crisis because you live itevery day.  its the worry you wake up with and the source of sleeplessnights.  its the job you thought youd retire from but now have lost thebusiness you built your dreams upon thats now hanging by a thread thecollege acceptance letter your child had to put back in the envelope.  theimpact of this recession is real and it is everywhere.but while our economy may be
 </pre>
 </div>
 </div>
@@ -13373,17 +13364,19 @@ impact of this recession is real, and it is ever
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[7]:</div>
+<div class="prompt input_prompt">In&nbsp;[20]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">vocab_size</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">vocab</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">pprint</span>
+
+<span class="n">vocab_size</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">vocab</span><span class="p">)</span>
 
 <span class="n">vocab_to_int</span> <span class="o">=</span> <span class="p">{</span><span class="n">l</span><span class="p">:</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span><span class="n">l</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">vocab</span><span class="p">)}</span>
 <span class="n">int_to_vocab</span> <span class="o">=</span> <span class="p">{</span><span class="n">i</span><span class="p">:</span><span class="n">l</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span><span class="n">l</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">vocab</span><span class="p">)}</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;vocab_to_int&quot;</span><span class="p">,</span> <span class="n">vocab_to_int</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;vocab_to_int: </span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">pprint</span><span class="o">.</span><span class="n">pformat</span><span class="p">(</span><span class="n">vocab_to_int</span><span class="p">))</span>
 <span class="nb">print</span><span class="p">()</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;int_to_vocab&quot;</span><span class="p">,</span> <span class="n">int_to_vocab</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;int_to_vocab: </span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">pprint</span><span class="o">.</span><span class="n">pformat</span><span class="p">(</span><span class="n">int_to_vocab</span><span class="p">))</span>
 
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">int for e:&quot;</span><span class="p">,</span> <span class="n">vocab_to_int</span><span class="p">[</span><span class="s2">&quot;e&quot;</span><span class="p">])</span>
 <span class="n">int_for_e</span> <span class="o">=</span> <span class="n">vocab_to_int</span><span class="p">[</span><span class="s2">&quot;e&quot;</span><span class="p">]</span>
@@ -13404,12 +13397,82 @@ impact of this recession is real, and it is ever
 
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>vocab_to_int {&#39;a&#39;: 0, &#39;p&#39;: 1, &#39;i&#39;: 2, &#39;:&#39;: 3, &#39;y&#39;: 4, &#39;0&#39;: 5, &#39;;&#39;: 6, &#39;3&#39;: 7, &#39;n&#39;: 8, &#39;k&#39;: 9, &#39;d&#39;: 10, &#39;e&#39;: 11, &#39;\n&#39;: 12, &#39;h&#39;: 13, &#39;.&#39;: 14, &#39;9&#39;: 15, &#39;o&#39;: 16, &#39;t&#39;: 17, &#39; &#39;: 18, &#34;&#39;&#34;: 19, &#39;x&#39;: 20, &#39;q&#39;: 21, &#39;%&#39;: 22, &#39;w&#39;: 23, &#39;b&#39;: 24, &#39;r&#39;: 25, &#39;l&#39;: 26, &#39;,&#39;: 27, &#39;g&#39;: 28, &#39;c&#39;: 29, &#39;u&#39;: 30, &#39;v&#39;: 31, &#39;7&#39;: 32, &#39;/&#39;: 33, &#39;m&#39;: 34, &#39;6&#39;: 35, &#39;j&#39;: 36, &#39;s&#39;: 37, &#39;&#34;&#39;: 38, &#39;z&#39;: 39, &#39;f&#39;: 40}
+<pre>vocab_to_int: 
+ {&#39; &#39;: 16,
+ &#39;%&#39;: 5,
+ &#39;.&#39;: 18,
+ &#39;0&#39;: 22,
+ &#39;3&#39;: 3,
+ &#39;6&#39;: 13,
+ &#39;7&#39;: 2,
+ &#39;9&#39;: 11,
+ &#39;:&#39;: 12,
+ &#39;a&#39;: 26,
+ &#39;b&#39;: 7,
+ &#39;c&#39;: 29,
+ &#39;d&#39;: 1,
+ &#39;e&#39;: 4,
+ &#39;f&#39;: 17,
+ &#39;g&#39;: 14,
+ &#39;h&#39;: 9,
+ &#39;i&#39;: 20,
+ &#39;j&#39;: 25,
+ &#39;k&#39;: 6,
+ &#39;l&#39;: 28,
+ &#39;m&#39;: 24,
+ &#39;n&#39;: 33,
+ &#39;o&#39;: 32,
+ &#39;p&#39;: 19,
+ &#39;q&#39;: 0,
+ &#39;r&#39;: 30,
+ &#39;s&#39;: 34,
+ &#39;t&#39;: 23,
+ &#39;u&#39;: 27,
+ &#39;v&#39;: 10,
+ &#39;w&#39;: 31,
+ &#39;x&#39;: 15,
+ &#39;y&#39;: 8,
+ &#39;z&#39;: 21}
 
-int_to_vocab {0: &#39;a&#39;, 1: &#39;p&#39;, 2: &#39;i&#39;, 3: &#39;:&#39;, 4: &#39;y&#39;, 5: &#39;0&#39;, 6: &#39;;&#39;, 7: &#39;3&#39;, 8: &#39;n&#39;, 9: &#39;k&#39;, 10: &#39;d&#39;, 11: &#39;e&#39;, 12: &#39;\n&#39;, 13: &#39;h&#39;, 14: &#39;.&#39;, 15: &#39;9&#39;, 16: &#39;o&#39;, 17: &#39;t&#39;, 18: &#39; &#39;, 19: &#34;&#39;&#34;, 20: &#39;x&#39;, 21: &#39;q&#39;, 22: &#39;%&#39;, 23: &#39;w&#39;, 24: &#39;b&#39;, 25: &#39;r&#39;, 26: &#39;l&#39;, 27: &#39;,&#39;, 28: &#39;g&#39;, 29: &#39;c&#39;, 30: &#39;u&#39;, 31: &#39;v&#39;, 32: &#39;7&#39;, 33: &#39;/&#39;, 34: &#39;m&#39;, 35: &#39;6&#39;, 36: &#39;j&#39;, 37: &#39;s&#39;, 38: &#39;&#34;&#39;, 39: &#39;z&#39;, 40: &#39;f&#39;}
+int_to_vocab: 
+ {0: &#39;q&#39;,
+ 1: &#39;d&#39;,
+ 2: &#39;7&#39;,
+ 3: &#39;3&#39;,
+ 4: &#39;e&#39;,
+ 5: &#39;%&#39;,
+ 6: &#39;k&#39;,
+ 7: &#39;b&#39;,
+ 8: &#39;y&#39;,
+ 9: &#39;h&#39;,
+ 10: &#39;v&#39;,
+ 11: &#39;9&#39;,
+ 12: &#39;:&#39;,
+ 13: &#39;6&#39;,
+ 14: &#39;g&#39;,
+ 15: &#39;x&#39;,
+ 16: &#39; &#39;,
+ 17: &#39;f&#39;,
+ 18: &#39;.&#39;,
+ 19: &#39;p&#39;,
+ 20: &#39;i&#39;,
+ 21: &#39;z&#39;,
+ 22: &#39;0&#39;,
+ 23: &#39;t&#39;,
+ 24: &#39;m&#39;,
+ 25: &#39;j&#39;,
+ 26: &#39;a&#39;,
+ 27: &#39;u&#39;,
+ 28: &#39;l&#39;,
+ 29: &#39;c&#39;,
+ 30: &#39;r&#39;,
+ 31: &#39;w&#39;,
+ 32: &#39;o&#39;,
+ 33: &#39;n&#39;,
+ 34: &#39;s&#39;}
 
-int for e: 11
-letter for 11: e
+int for e: 4
+letter for 4: e
 </pre>
 </div>
 </div>
@@ -13420,13 +13483,13 @@ letter for 11: e
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[8]:</div>
+<div class="prompt input_prompt">In&nbsp;[25]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">encoded</span> <span class="o">=</span> <span class="p">[</span><span class="n">vocab_to_int</span><span class="p">[</span><span class="n">l</span><span class="p">]</span> <span class="k">for</span> <span class="n">l</span> <span class="ow">in</span> <span class="n">text</span><span class="p">]</span>
 <span class="n">encoded_sentence</span> <span class="o">=</span> <span class="n">encoded</span><span class="p">[:</span><span class="mi">100</span><span class="p">]</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="n">encoded_sentence</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;encoded sentence : &quot;</span><span class="p">,</span> <span class="n">encoded_sentence</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -13443,7 +13506,7 @@ letter for 11: e
 
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>[34, 0, 10, 0, 34, 11, 18, 37, 1, 11, 0, 9, 11, 25, 27, 18, 34, 25, 14, 18, 31, 2, 29, 11, 18, 1, 25, 11, 37, 2, 10, 11, 8, 17, 27, 18, 34, 11, 34, 24, 11, 25, 37, 18, 16, 40, 18, 29, 16, 8, 28, 25, 11, 37, 37, 27, 18, 0, 8, 10, 18, 17, 13, 11, 18, 40, 2, 25, 37, 17, 18, 26, 0, 10, 4, 18, 16, 40, 12, 17, 13, 11, 18, 30, 8, 2, 17, 11, 10, 18, 37, 17, 0, 17, 11, 37, 3, 12, 12, 2]
+<pre>encoded sentence :  [24, 26, 1, 26, 24, 4, 16, 34, 19, 4, 26, 6, 4, 30, 16, 24, 30, 18, 16, 10, 20, 29, 4, 16, 19, 30, 4, 34, 20, 1, 4, 33, 23, 16, 24, 4, 24, 7, 4, 30, 34, 16, 32, 17, 16, 29, 32, 33, 14, 30, 4, 34, 34, 16, 26, 33, 1, 16, 23, 9, 4, 16, 17, 20, 30, 34, 23, 16, 28, 26, 1, 8, 16, 32, 17, 23, 9, 4, 16, 27, 33, 20, 23, 4, 1, 16, 34, 23, 26, 23, 4, 34, 12, 20, 10, 4, 16, 29, 32, 24]
 </pre>
 </div>
 </div>
@@ -13454,7 +13517,7 @@ letter for 11: e
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[9]:</div>
+<div class="prompt input_prompt">In&nbsp;[26]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">decoded_sentence</span> <span class="o">=</span> <span class="p">[</span><span class="n">int_to_vocab</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">encoded_sentence</span><span class="p">]</span>
@@ -13475,7 +13538,7 @@ letter for 11: e
 
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>[&#39;m&#39;, &#39;a&#39;, &#39;d&#39;, &#39;a&#39;, &#39;m&#39;, &#39;e&#39;, &#39; &#39;, &#39;s&#39;, &#39;p&#39;, &#39;e&#39;, &#39;a&#39;, &#39;k&#39;, &#39;e&#39;, &#39;r&#39;, &#39;,&#39;, &#39; &#39;, &#39;m&#39;, &#39;r&#39;, &#39;.&#39;, &#39; &#39;, &#39;v&#39;, &#39;i&#39;, &#39;c&#39;, &#39;e&#39;, &#39; &#39;, &#39;p&#39;, &#39;r&#39;, &#39;e&#39;, &#39;s&#39;, &#39;i&#39;, &#39;d&#39;, &#39;e&#39;, &#39;n&#39;, &#39;t&#39;, &#39;,&#39;, &#39; &#39;, &#39;m&#39;, &#39;e&#39;, &#39;m&#39;, &#39;b&#39;, &#39;e&#39;, &#39;r&#39;, &#39;s&#39;, &#39; &#39;, &#39;o&#39;, &#39;f&#39;, &#39; &#39;, &#39;c&#39;, &#39;o&#39;, &#39;n&#39;, &#39;g&#39;, &#39;r&#39;, &#39;e&#39;, &#39;s&#39;, &#39;s&#39;, &#39;,&#39;, &#39; &#39;, &#39;a&#39;, &#39;n&#39;, &#39;d&#39;, &#39; &#39;, &#39;t&#39;, &#39;h&#39;, &#39;e&#39;, &#39; &#39;, &#39;f&#39;, &#39;i&#39;, &#39;r&#39;, &#39;s&#39;, &#39;t&#39;, &#39; &#39;, &#39;l&#39;, &#39;a&#39;, &#39;d&#39;, &#39;y&#39;, &#39; &#39;, &#39;o&#39;, &#39;f&#39;, &#39;\n&#39;, &#39;t&#39;, &#39;h&#39;, &#39;e&#39;, &#39; &#39;, &#39;u&#39;, &#39;n&#39;, &#39;i&#39;, &#39;t&#39;, &#39;e&#39;, &#39;d&#39;, &#39; &#39;, &#39;s&#39;, &#39;t&#39;, &#39;a&#39;, &#39;t&#39;, &#39;e&#39;, &#39;s&#39;, &#39;:&#39;, &#39;\n&#39;, &#39;\n&#39;, &#39;i&#39;]
+<pre>[&#39;m&#39;, &#39;a&#39;, &#39;d&#39;, &#39;a&#39;, &#39;m&#39;, &#39;e&#39;, &#39; &#39;, &#39;s&#39;, &#39;p&#39;, &#39;e&#39;, &#39;a&#39;, &#39;k&#39;, &#39;e&#39;, &#39;r&#39;, &#39; &#39;, &#39;m&#39;, &#39;r&#39;, &#39;.&#39;, &#39; &#39;, &#39;v&#39;, &#39;i&#39;, &#39;c&#39;, &#39;e&#39;, &#39; &#39;, &#39;p&#39;, &#39;r&#39;, &#39;e&#39;, &#39;s&#39;, &#39;i&#39;, &#39;d&#39;, &#39;e&#39;, &#39;n&#39;, &#39;t&#39;, &#39; &#39;, &#39;m&#39;, &#39;e&#39;, &#39;m&#39;, &#39;b&#39;, &#39;e&#39;, &#39;r&#39;, &#39;s&#39;, &#39; &#39;, &#39;o&#39;, &#39;f&#39;, &#39; &#39;, &#39;c&#39;, &#39;o&#39;, &#39;n&#39;, &#39;g&#39;, &#39;r&#39;, &#39;e&#39;, &#39;s&#39;, &#39;s&#39;, &#39; &#39;, &#39;a&#39;, &#39;n&#39;, &#39;d&#39;, &#39; &#39;, &#39;t&#39;, &#39;h&#39;, &#39;e&#39;, &#39; &#39;, &#39;f&#39;, &#39;i&#39;, &#39;r&#39;, &#39;s&#39;, &#39;t&#39;, &#39; &#39;, &#39;l&#39;, &#39;a&#39;, &#39;d&#39;, &#39;y&#39;, &#39; &#39;, &#39;o&#39;, &#39;f&#39;, &#39;t&#39;, &#39;h&#39;, &#39;e&#39;, &#39; &#39;, &#39;u&#39;, &#39;n&#39;, &#39;i&#39;, &#39;t&#39;, &#39;e&#39;, &#39;d&#39;, &#39; &#39;, &#39;s&#39;, &#39;t&#39;, &#39;a&#39;, &#39;t&#39;, &#39;e&#39;, &#39;s&#39;, &#39;:&#39;, &#39;i&#39;, &#39;v&#39;, &#39;e&#39;, &#39; &#39;, &#39;c&#39;, &#39;o&#39;, &#39;m&#39;]
 </pre>
 </div>
 </div>
@@ -13486,7 +13549,7 @@ letter for 11: e
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[10]:</div>
+<div class="prompt input_prompt">In&nbsp;[27]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">decoded_sentence</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">decoded_sentence</span><span class="p">)</span>
@@ -13507,10 +13570,7 @@ letter for 11: e
 
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>madame speaker, mr. vice president, members of congress, and the first lady of
-the united states:
-
-i
+<pre>madame speaker mr. vice president members of congress and the first lady ofthe united states:ive com
 </pre>
 </div>
 </div>
@@ -13522,14 +13582,14 @@ i
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="3.3---Genrate-batch">3.3 - Genrate batch<a class="anchor-link" href="#3.3---Genrate-batch">&#182;</a></h2><h3 id="Sample-of-one-batch">Sample of one batch<a class="anchor-link" href="#Sample-of-one-batch">&#182;</a></h3><p><img src="../assets/images/rnn_letter.png"></p>
+<h2 id="3.3---Generate-batch">3.3 - Generate batch<a class="anchor-link" href="#3.3---Generate-batch">&#182;</a></h2><h3 id="Sample-of-one-batch">Sample of one batch<a class="anchor-link" href="#Sample-of-one-batch">&#182;</a></h3><p><img src="../assets/images/rnn_letter.png"></p>
 
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[11]:</div>
+<div class="prompt input_prompt">In&nbsp;[29]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">inputs</span><span class="p">,</span> <span class="n">targets</span> <span class="o">=</span> <span class="n">encoded</span><span class="p">,</span> <span class="n">encoded</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>
@@ -13552,8 +13612,8 @@ i
 
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>Inputs [34, 0, 10, 0, 34, 11, 18, 37, 1, 11]
-Targets [0, 10, 0, 34, 11, 18, 37, 1, 11, 0]
+<pre>Inputs [24, 26, 1, 26, 24, 4, 16, 34, 19, 4]
+Targets [26, 1, 26, 24, 4, 16, 34, 19, 4, 26]
 </pre>
 </div>
 </div>
@@ -13571,7 +13631,7 @@ Targets [0, 10, 0, 34, 11, 18, 37, 1, 11, 0]
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[12]:</div>
+<div class="prompt input_prompt">In&nbsp;[30]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">gen_batch</span><span class="p">(</span><span class="n">inputs</span><span class="p">,</span> <span class="n">targets</span><span class="p">,</span> <span class="n">seq_len</span><span class="p">,</span> <span class="n">batch_size</span><span class="p">,</span> <span class="n">noise</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
@@ -13618,8 +13678,8 @@ Targets [0, 10, 0, 34, 11, 18, 37, 1, 11, 0]
 
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>[34.  0. 10.  0. 34.] [ 0. 10.  0. 34. 11.]
-[34. 16. 10.  0. 16.] [ 0. 10.  0. 34. 11.]
+<pre>[24. 26.  1. 26. 24.] [26.  1. 26. 24.  4.]
+[24.  1.  1. 26.  1.] [26.  1. 26. 24.  4.]
 </pre>
 </div>
 </div>
@@ -13637,7 +13697,7 @@ Targets [0, 10, 0, 34, 11, 18, 37, 1, 11, 0]
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[13]:</div>
+<div class="prompt input_prompt">In&nbsp;[31]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">class</span> <span class="nc">OneHot</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Layer</span><span class="p">):</span>
@@ -13664,7 +13724,7 @@ Targets [0, 10, 0, 34, 11, 18, 37, 1, 11, 0]
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[14]:</div>
+<div class="prompt input_prompt">In&nbsp;[32]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">class</span> <span class="nc">RnnModel</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
@@ -13710,14 +13770,14 @@ Targets [0, 10, 0, 34, 11, 18, 37, 1, 11, 0]
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>(32, 50)
-WARNING:tensorflow:Entity &lt;bound method RnnModel.call of &lt;__main__.RnnModel object at 0x7f4a7bd9de10&gt;&gt; could not be transformed and will be executed as-is. Please report this to the AutoGraph team. When filing the bug, set the verbosity to 10 (on Linux, `export AUTOGRAPH_VERBOSITY=10`) and attach the full output. Cause: Bad argument number for Name: 3, expecting 4
-WARNING: Entity &lt;bound method RnnModel.call of &lt;__main__.RnnModel object at 0x7f4a7bd9de10&gt;&gt; could not be transformed and will be executed as-is. Please report this to the AutoGraph team. When filing the bug, set the verbosity to 10 (on Linux, `export AUTOGRAPH_VERBOSITY=10`) and attach the full output. Cause: Bad argument number for Name: 3, expecting 4
-WARNING:tensorflow:Entity &lt;bound method OneHot.call of &lt;__main__.OneHot object at 0x7f4a80e20950&gt;&gt; could not be transformed and will be executed as-is. Please report this to the AutoGraph team. When filing the bug, set the verbosity to 10 (on Linux, `export AUTOGRAPH_VERBOSITY=10`) and attach the full output. Cause: Bad argument number for Name: 3, expecting 4
-WARNING: Entity &lt;bound method OneHot.call of &lt;__main__.OneHot object at 0x7f4a80e20950&gt;&gt; could not be transformed and will be executed as-is. Please report this to the AutoGraph team. When filing the bug, set the verbosity to 10 (on Linux, `export AUTOGRAPH_VERBOSITY=10`) and attach the full output. Cause: Bad argument number for Name: 3, expecting 4
-(32, 50, 41)
-Input letter is: 34.0
+WARNING:tensorflow:Entity &lt;bound method RnnModel.call of &lt;__main__.RnnModel object at 0x7f1863d65110&gt;&gt; could not be transformed and will be executed as-is. Please report this to the AutoGraph team. When filing the bug, set the verbosity to 10 (on Linux, `export AUTOGRAPH_VERBOSITY=10`) and attach the full output. Cause: Bad argument number for Name: 3, expecting 4
+WARNING: Entity &lt;bound method RnnModel.call of &lt;__main__.RnnModel object at 0x7f1863d65110&gt;&gt; could not be transformed and will be executed as-is. Please report this to the AutoGraph team. When filing the bug, set the verbosity to 10 (on Linux, `export AUTOGRAPH_VERBOSITY=10`) and attach the full output. Cause: Bad argument number for Name: 3, expecting 4
+WARNING:tensorflow:Entity &lt;bound method OneHot.call of &lt;__main__.OneHot object at 0x7f1863d24a50&gt;&gt; could not be transformed and will be executed as-is. Please report this to the AutoGraph team. When filing the bug, set the verbosity to 10 (on Linux, `export AUTOGRAPH_VERBOSITY=10`) and attach the full output. Cause: Bad argument number for Name: 3, expecting 4
+WARNING: Entity &lt;bound method OneHot.call of &lt;__main__.OneHot object at 0x7f1863d24a50&gt;&gt; could not be transformed and will be executed as-is. Please report this to the AutoGraph team. When filing the bug, set the verbosity to 10 (on Linux, `export AUTOGRAPH_VERBOSITY=10`) and attach the full output. Cause: Bad argument number for Name: 3, expecting 4
+(32, 50, 35)
+Input letter is: 24.0
 One hot representation of the letter [0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0.
- 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 1. 0. 0. 0. 0. 0. 0.]
+ 1. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
 </pre>
 </div>
 </div>

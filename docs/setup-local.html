@@ -2,7 +2,7 @@
 <html>
 <head><meta charset="utf-8" />
 
-<title>README</title>
+<title>setup-local</title>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
@@ -13116,70 +13116,135 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Deep-Learning---v2">Deep Learning - v2<a class="anchor-link" href="#Deep-Learning---v2">&#182;</a></h1>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>To run this lab:</p>
-<div class="highlight"><pre><span></span>$   <span class="nb">cd</span>  /path/to/lab/dir
-    $   ./run-jupyter.sh
-</pre></div>
-<h2 id="Setup">Setup<a class="anchor-link" href="#Setup">&#182;</a></h2><h4 id="Option-1:-Using-Training-Docker-Image--(Recommended)">Option 1: Using Training Docker Image  (Recommended)<a class="anchor-link" href="#Option-1:-Using-Training-Docker-Image--(Recommended)">&#182;</a></h4><p>This docker image has most of the software already installed.<br>
-Follow <a href="docs/setup.html">setup</a> to complete the set up.</p>
-<h4 id="Option-2-:-Using-Colab-(Least-Effort)">Option 2 : Using Colab (Least Effort)<a class="anchor-link" href="#Option-2-:-Using-Colab-(Least-Effort)">&#182;</a></h4><p>If using Google's Colab environment, no setup is necessary.<br>
-Read <a href="docs/google-colab.html">Colab intro guide</a></p>
-<h4 id="Option-3-:-Using-your-own-machine--(Advanced)">Option 3 : Using your own machine  (Advanced)<a class="anchor-link" href="#Option-3-:-Using-your-own-machine--(Advanced)">&#182;</a></h4><p>You are welcome to use your own machine for the class.<br>
-Here are <a href="docs/setup-local.html">instructions to setup your machine</a></p>
-<h4 id="Final-Step:-(Must-do-for-all)-Verifying-the-setup">Final Step: (<em>Must do for all</em>) Verifying the setup<a class="anchor-link" href="#Final-Step:-(Must-do-for-all)-Verifying-the-setup">&#182;</a></h4><p>Once done with setup, <strong>Test your setup by running <a href="0-testing/testing-123.html">Testing123</a></strong><br>
-Make sure there are no errors!</p>
+<h1 id="Setup-your-local-laptop-for-the-labs">Setup your local laptop for the labs<a class="anchor-link" href="#Setup-your-local-laptop-for-the-labs">&#182;</a></h1><p>This guide will walk you through how to setup a local setup to run the labs.</p>
+<p>There are two ways of running labs</p>
+<ul>
+<li>Option A : Easiest if it works : Use training docker image</li>
+<li>Option B : Takes some work : Native setup</li>
+</ul>
+<h2 id="Operating-System">Operating System<a class="anchor-link" href="#Operating-System">&#182;</a></h2><p>Setup is easier if you have either <strong>MacOS or Linux</strong>.<br>
+If you are on Windows, try</p>
+<ul>
+<li>run the docker image if your machine supports docker</li>
+<li>Download and run ubuntu linux virtual machine using VirtualBox</li>
+</ul>
 <hr>
-<h3 id="Where-to-get-Data">Where to get Data<a class="anchor-link" href="#Where-to-get-Data">&#182;</a></h3><ul>
+<h2 id="Option-A-:-Using-Docker-Image">Option A : Using Docker Image<a class="anchor-link" href="#Option-A-:-Using-Docker-Image">&#182;</a></h2><h3 id="Software-Needed">Software Needed<a class="anchor-link" href="#Software-Needed">&#182;</a></h3><ul>
+<li>Docker</li>
+<li>that is it!</li>
+</ul>
+<h3 id="Step-A1-:-Install-Docker">Step A1 : Install Docker<a class="anchor-link" href="#Step-A1-:-Install-Docker">&#182;</a></h3><p>Download Docker <a href="https://www.docker.com/">from here</a> and install</p>
+<h3 id="Step-A2-:-Test-your-Docker-is-working">Step A2 : Test your Docker is working<a class="anchor-link" href="#Step-A2-:-Test-your-Docker-is-working">&#182;</a></h3><ul>
+<li>open a terminal</li>
+<li>enter command<br>
+<code>docker images</code><br>
+see if it works</li>
+<li>Try this<br>
+<code>docker run hello-world</code><br>
+This will download the docker image and run it.<br>
+If this works, docker is working on your system</li>
+</ul>
+<h3 id="Step-A3-:-Download-training-docker-image">Step A3 : Download training docker image<a class="anchor-link" href="#Step-A3-:-Download-training-docker-image">&#182;</a></h3><ul>
+<li>Create an account at <a href="https://hub.docker.com/">Dockerhub</a></li>
+<li>Give the instructor your docker-hub-id so we can add it to the authorized user group</li>
+<li>Try the following</li>
+</ul>
+<div class="highlight"><pre><span></span>$  docker login
+<span class="c1"># enter your credentials here</span>
+
+$  docker pull elephantscale/es-training
+<span class="c1"># this will take some time download the training image</span>
+
+$  docker images
+<span class="c1"># you should see the training image</span>
+</pre></div>
+<h3 id="Step-A4-:-Download-dataset">Step A4 : Download dataset<a class="anchor-link" href="#Step-A4-:-Download-dataset">&#182;</a></h3><ul>
+<li>You can access the data repository <a href="https://s3.amazonaws.com/elephantscale-public/data/datasets.zip">here</a> (click link to download.  warning large file size ~300Meg + )<br>
+To download this from command line<br>
+<code>$    wget 'https://s3.amazonaws.com/elephantscale-public/data/datasets.zip'</code></li>
+<li>Unzip the dataset in $HOME/datasets  
+Also create a symlink like this  
+`$   sudo ln -s ~/datasets /data `</li>
+</ul>
+<h3 id="Step-A5-:-Download-the-labs-/-solutions">Step A5 : Download the labs / solutions<a class="anchor-link" href="#Step-A5-:-Download-the-labs-/-solutions">&#182;</a></h3><ul>
+<li>instructor will provide the labs bundle</li>
+<li>unzip the lab (anywhere)</li>
+</ul>
+<h3 id="Step-A6-:-Run-the-docker">Step A6 : Run the docker<a class="anchor-link" href="#Step-A6-:-Run-the-docker">&#182;</a></h3><ul>
+<li>in the lab dir, you will see a <code>run-docker.sh</code><br>
+This is the script we will use to launch the docker image.</li>
+<li>It will do the following directory mappings<ul>
+<li>current lab directory on host machine --&gt; <code>$HOME/dev</code> directory in docker</li>
+<li><code>$HOME/datasets</code> directory on host machine --&gt; <code>/data</code> directory in docker</li>
+</ul>
+</li>
+</ul>
+<div class="highlight"><pre><span></span>$   <span class="nb">cd</span> deep-learning-labs  <span class="c1"># or where ever you unzipped the labs</span>
+$   ./run-docker.sh    elephantscale/es-training
+</pre></div>
+<h3 id="A7-:-Access-Jupyter-Page">A7 : Access Jupyter Page<a class="anchor-link" href="#A7-:-Access-Jupyter-Page">&#182;</a></h3><ul>
+<li>default password is <code>bingobob123</code></li>
+<li>In Jupyter, navigate to <code>dev</code> directory to see the files</li>
+</ul>
+<h3 id="A8:-Open-and-run-testing123.html-file">A8: Open and run <code>testing123.html</code> file<a class="anchor-link" href="#A8:-Open-and-run-testing123.html-file">&#182;</a></h3><p>This file is under <code>0-testing</code> directory.<br>
+This file will check your setup.<br>
+If there are no errors here, then you are good to go</p>
+<p><strong>You are up and running</strong><br>
+<strong>Happy learning!</strong></p>
+<hr>
+<h2 id="Option-B-:-Native-Setup">Option B : Native Setup<a class="anchor-link" href="#Option-B-:-Native-Setup">&#182;</a></h2><p>This works best on <strong>Mac or Linux</strong></p>
+<h3 id="Software-Needed">Software Needed<a class="anchor-link" href="#Software-Needed">&#182;</a></h3><ul>
+<li>Anaconda Python version 3.x</li>
+</ul>
+<h3 id="B1:-Install-Anaconda-Python">B1: Install Anaconda Python<a class="anchor-link" href="#B1:-Install-Anaconda-Python">&#182;</a></h3><p>Download and install Anaconda Python version 3.x from <a href="https://www.anaconda.com/download/">here</a>.</p>
+<h3 id="B2-:-Setup-a-Tensorflow-v2-environment">B2 : Setup a Tensorflow v2 environment<a class="anchor-link" href="#B2-:-Setup-a-Tensorflow-v2-environment">&#182;</a></h3><div class="highlight"><pre><span></span>$ conda env list
+
+<span class="c1"># create a new env</span>
+$ conda create -y -n tf2 <span class="se">\</span>
+    ipykernel <span class="se">\</span>
+    jupyter <span class="se">\</span>
+    jupyterlab <span class="se">\</span>
+    <span class="nv">matplotlib</span><span class="o">==</span><span class="m">3</span>.1.0<span class="se">\</span>
+    numpy <span class="se">\</span>
+    opencv <span class="se">\</span>
+    pandas <span class="se">\</span>
+    pillow <span class="se">\</span>
+    pydot <span class="se">\</span>
+    scikit-learn<span class="se">\</span>
+    scipy <span class="se">\</span>
+    seaborn <span class="se">\</span>
+    unidecode
+
+$ conda activate tf2
+
+$ pip install --upgrade pip
+
+$ pip install <span class="nv">tensorflow</span><span class="o">==</span><span class="m">2</span>.0.0-rc0 tensorboard  keras
+
+$ ipython kernel install --user --name<span class="o">=</span>tf2
+</pre></div>
+<h3 id="B3:-Download-data-files">B3: Download data files<a class="anchor-link" href="#B3:-Download-data-files">&#182;</a></h3><ul>
 <li>You can access the data repository <a href="https://s3.amazonaws.com/elephantscale-public/data/datasets.zip">here</a> (click link to download.  warning large file size ~300Meg + )<br>
 To download this from command line<div class="highlight"><pre><span></span>$    wget <span class="s1">&#39;https://s3.amazonaws.com/elephantscale-public/data/datasets.zip&#39;</span>
 </pre></div>
 </li>
-<li>Also here are some popular data sources<ul>
-<li><a href="https://archive.ics.uci.edu/ml/index.php">UCI machine learning repository</a> - very popular repo with lots of real world (and reasonably clean) datasets</li>
-<li><a href="https://www.kaggle.com/datasets">Kaggle data repository</a> - lot's of real world data used in competitions</li>
-</ul>
+<li>Unzip the dataset in <code>$HOME/datasets</code><br>
+Also create a symlink like this  <div class="highlight"><pre><span></span>$   sudo ln -s ~/datasets /data
+</pre></div>
 </li>
 </ul>
-<hr>
-<h2 id="Labs">Labs<a class="anchor-link" href="#Labs">&#182;</a></h2><h3 id="1---Hello-Jupyter">1 - Hello Jupyter<a class="anchor-link" href="#1---Hello-Jupyter">&#182;</a></h3><ul>
-<li>1.1 - <a href="0-testing/hello-jupyter.html">Hello Jupyter</a></li>
+<h3 id="B4-:-Download-the-labs-/-solutions">B4 : Download the labs / solutions<a class="anchor-link" href="#B4-:-Download-the-labs-/-solutions">&#182;</a></h3><ul>
+<li>instructor will provide the labs bundle</li>
+<li>unzip the lab (anywhere)</li>
 </ul>
-<h3 id="2---(Optional)-Basic-Python-Labs:--Numpy,--Pandas,-Stats-and-Visualization">2 - (Optional) Basic Python Labs:  Numpy,  Pandas, Stats and Visualization<a class="anchor-link" href="#2---(Optional)-Basic-Python-Labs:--Numpy,--Pandas,-Stats-and-Visualization">&#182;</a></h3><p>Not covered in class.  But provided as a quick reference lab.<br>
-In <strong>python-basics</strong> folder.</p>
-<h3 id="3---Tensorflow">3 - Tensorflow<a class="anchor-link" href="#3---Tensorflow">&#182;</a></h3><ul>
-<li>3.1 - <a href="tensorflow/1-tensorflow-test-v1.html">Tensorflow core API v1</a></li>
-<li>3.2 - <a href="tensorflow/2-tensorflow-test-v2.html">Tensorflow core API v2</a></li>
-</ul>
-<h3 id="4---Regressions">4 - Regressions<a class="anchor-link" href="#4---Regressions">&#182;</a></h3><ul>
-<li>4.1 - (instructor to demo first)  <a href="regressions/1-regression-linear-tips.html">Regression 1 : Linear</a> - Start with a simple linear regression (bills/tips data)</li>
-<li>4.2 - <a href="regressions/2-regression-house-prices.html">Regression 2 : Predict house prices</a></li>
-</ul>
-<h3 id="5---Utilities-1-:-Metrics">5 - Utilities 1 : Metrics<a class="anchor-link" href="#5---Utilities-1-:-Metrics">&#182;</a></h3><p>Let's learn some tooling in Deep Learning that makes our lives much easier</p>
-<ul>
-<li>5.1 - <a href="metrics/1-metrics.html">Metrics 1 - Training metrics</a> - Understand and evaluate metrics of trainnig a NN</li>
-<li>5.2 - <a href="metrics/2-metrics-tensorboard.html">Metrics 2 - Using Tensorboard for metrics</a></li>
-</ul>
-<h3 id="6---Classifications">6 - Classifications<a class="anchor-link" href="#6---Classifications">&#182;</a></h3><ul>
-<li>6.1 - (Instructor to demo this first) <a href="clssifications/1-classification-iris.iynb">Classification 1 : IRIS dataset</a></li>
-<li>6.2 - <a href="clssifications/2-classification-prosper.iynb">Classification 2 : Predict loan defaults in Prosper dataset</a></li>
-</ul>
-<h3 id="7---Utilities-2---Callbacks">7 - Utilities 2 - Callbacks<a class="anchor-link" href="#7---Utilities-2---Callbacks">&#182;</a></h3><ul>
-<li>7.1 - TODO <a href="">Utilities - Callbacks</a> - control training</li>
-</ul>
-<h3 id="Mid-Course-Workshop-(time-permitting)">Mid-Course Workshop (time permitting)<a class="anchor-link" href="#Mid-Course-Workshop-(time-permitting)">&#182;</a></h3><p>We are going to use 'Diabetes' dataset.  This is an 'open ended lab'.<br>
-Start with a fresh notebook.  And see if you can predict the outcome.<br>
-Also try different algorithms and see which one performs better :-)</p>
-<ul>
-<li><a href="workshops/diabetes-prediction.html">Diabetes prediction</a></li>
-</ul>
-
+<h3 id="B5:-Run--run-jupyter.sh">B5: Run  <code>run-jupyter.sh</code><a class="anchor-link" href="#B5:-Run--run-jupyter.sh">&#182;</a></h3><p>This file is located in the labs directory.</p>
+<div class="highlight"><pre><span></span>./run-jupyter.sh
+</pre></div>
+<p>This will print out a URL, go to that URL.</p>
+<h3 id="B6:-Open-and-run-testing123.html-file">B6: Open and run <code>testing123.html</code> file<a class="anchor-link" href="#B6:-Open-and-run-testing123.html-file">&#182;</a></h3><p>This file is under <code>0-testing</code> directory.<br>
+This file will check your setup.<br>
+If there are no errors here, then you are good to go</p>
+<h3 id="B7-:-And-practice!">B7 : And practice!<a class="anchor-link" href="#B7-:-And-practice!">&#182;</a></h3>
 </div>
 </div>
 </div>
