@@ -1,0 +1,29 @@
+## How to assemble labs
+##    ./package-labs.sh
+
+## from here
+
+assets
+classifications
+computer-vision
+docs
+lab-template.ipynb
+metrics
+my_utils.py
+README.ipynb
+regressions
+rnn
+run-docker.sh
+run-jupyter.sh
+tensorflow
+transfer-learning
+google-colab.ipynb
+setup-local.ipynb
+setup.ipynb
+
+
+## From other repos
+$ES_HOME/python-labs-solutions/0-testing
+$ES_HOME/python-labs-solutions/python-basics  python-analysis
+
+
