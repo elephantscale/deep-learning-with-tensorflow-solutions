@@ -6,7 +6,7 @@
 assets
 classifications
 computer-vision
-docs
+#docs
 lab-template.ipynb
 metrics
 my_utils.py
