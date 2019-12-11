@@ -24,6 +24,6 @@ setup.ipynb
 
 ## From other repos
 $ES_HOME/python-labs-solutions/0-testing
-$ES_HOME/python-labs-solutions/python-basics  python-analysis
+$ES_HOME/python-labs-solutions/python-basics
 
 
