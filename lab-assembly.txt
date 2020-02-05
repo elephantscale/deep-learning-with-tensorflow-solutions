@@ -17,7 +17,6 @@ run-docker.sh
 run-jupyter.sh
 tensorflow
 transfer-learning
-google-colab.ipynb
 setup-local.ipynb
 setup.ipynb
 
@@ -25,5 +24,8 @@ setup.ipynb
 ## From other repos
 $ES_HOME/python-labs-solutions/0-testing
 $ES_HOME/python-labs-solutions/python-basics
+$ES_HOME/python-labs-solutions/python-basics
+
+$ES_HOME/ml-labs-python/google-colab.ipynb
 
 
