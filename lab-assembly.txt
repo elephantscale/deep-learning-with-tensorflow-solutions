@@ -10,22 +10,30 @@ computer-vision
 lab-template.ipynb
 metrics
 my_utils.py
-README.ipynb
 regressions
 rnn
-run-docker.sh
-run-jupyter.sh
 tensorflow
 transfer-learning
-setup-local.ipynb
-setup.ipynb
 
+## Readme and setup docs
+$ES_HOME/deep-learning-labs/README.ipynb
+$ES_HOME/deep-learning-labs/setup-local-native.ipynb
+$ES_HOME/deep-learning-labs/setup-local-docker.ipynb
+$ES_HOME/deep-learning-labs/setup-cloud-vm.ipynb
 
-## From other repos
-$ES_HOME/python-labs-solutions/0-testing
+##python basics
+$ES_HOME/python-labs/0-testing
 $ES_HOME/python-labs-solutions/python-basics
-$ES_HOME/python-labs-solutions/python-basics
 
-$ES_HOME/ml-labs-python/google-colab.ipynb
+
+## Google Colab
+$ES_HOME/python-labs/google-colab.ipynb
+$ES_HOME/python-labs/assets/images/google-colab-1.png  assets/images/
+$ES_HOME/python-labs/assets/images/google-colab-2.png  assets/images/
+$ES_HOME/python-labs/assets/images/google-colab-3.png  assets/images/
+$ES_HOME/python-labs/assets/images/google-colab-4.png  assets/images/
+$ES_HOME/python-labs/assets/images/google-colab-5.png  assets/images/
+$ES_HOME/python-labs/assets/images/google-colab-6.png  assets/images/
+
 
 
