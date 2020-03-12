@@ -13,7 +13,9 @@ my_utils.py
 regressions
 rnn
 tensorflow
-transfer-learning
+
+## transfer learning
+$ES_HOME/deep-learning-labs/transfer-learning
 
 ## Readme and setup docs
 $ES_HOME/deep-learning-labs/README.ipynb
@@ -34,6 +36,3 @@ $ES_HOME/python-labs/assets/images/google-colab-3.png  assets/images/
 $ES_HOME/python-labs/assets/images/google-colab-4.png  assets/images/
 $ES_HOME/python-labs/assets/images/google-colab-5.png  assets/images/
 $ES_HOME/python-labs/assets/images/google-colab-6.png  assets/images/
-
-
-
