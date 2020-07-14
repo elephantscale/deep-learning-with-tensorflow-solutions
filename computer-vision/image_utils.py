@@ -1,16 +1,11 @@
 ## Utility functions 
 
-%matplotlib inline
-
-import glob
-import os
-
-import random
-import matplotlib.pyplot as plt
-import matplotlib.image as mpimg
+# %matplotlib inline
 
 ## Gets number of files in the directory and total size in MB
 def get_dir_stats(adir):
+    import os, glob
+    
     listing = glob.glob(os.path.join(adir, "**/*.*"), recursive=True)
     files = [f for f in listing if os.path.isfile(f)]
     file_sizes = [os.path.getsize(f) for f in files]
@@ -18,16 +13,19 @@ def get_dir_stats(adir):
     return (len(files), total_file_size_MB)
     
 
-def print_dir_stats (dir_name, adir, class_labels):
+def print_dir_stats (a_dir_name, adir, a_class_labels):
+    import os 
+    
     dir_stats = get_dir_stats(adir)
-    print ('--- {} ({}):  files={},  size={} MB'.format(dir_name, adir, dir_stats[0], dir_stats[1]))
-    for class_label in class_labels:
+    print ('--- {} ({}):  files={},  size={} MB'.format(a_dir_name, adir, dir_stats[0], dir_stats[1]))
+    for class_label in a_class_labels:
         class_dir = os.path.join(adir, class_label)
         dir_stats = get_dir_stats (class_dir)
         print ('       +-- {} :  files={},  size={} MB'.format(class_label, dir_stats[0], dir_stats[1]))
 
 
 def get_class_labels(a_training_dir):
+    import os 
     return [d for d in os.listdir(a_training_dir) if os.path.isdir(os.path.join(a_training_dir,d))]
         
 def print_training_validation_stats (a_training_dir, a_validation_dir):
@@ -43,6 +41,11 @@ def print_training_validation_stats (a_training_dir, a_validation_dir):
 
 
 def display_images (a_train_dir, num_images_per_label):
+    import matplotlib.pyplot as plt
+    import matplotlib.image as mpimg
+    import random
+    import os
+    
     class_labels = get_class_labels(train_dir)
     
     fig_rows = len(class_labels)
