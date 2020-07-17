@@ -40,7 +40,7 @@ def print_training_validation_stats (a_training_dir, a_validation_dir):
         
 
 
-def display_images_from_dir (a_train_dir, num_images_per_label):
+def display_images_from_dir (train_dir, num_images_per_label):
     import matplotlib.pyplot as plt
     import matplotlib.image as mpimg
     import random
