@@ -63,7 +63,20 @@ def print_training_validation_stats (a_training_dir, a_validation_dir):
     if a_validation_dir:
         print_dir_stats('validation_data', a_validation_dir, class_labels)
         
-
+# This function will plot images in the form of a grid with 1 row and 5 columns where images are placed in each column.
+def plot_images(images_arr, message=""):
+    import matplotlib.pyplot as plt
+    
+    if message:
+        plt.suptitle( message, fontsize=20, fontweight='bold')
+    fig, axes = plt.subplots(1, 5, figsize=(20,20))
+    axes = axes.flatten()
+    for img, ax in zip( images_arr, axes):
+        ax.imshow(img)
+        ax.axis('off')
+#     plt.tight_layout()
+    plt.show()
+    
 
 def display_images_from_dir (image_dir, num_images_per_label=5):
     import matplotlib.pyplot as plt
