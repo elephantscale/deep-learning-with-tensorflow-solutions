@@ -14,8 +14,6 @@ regressions
 rnn
 tensorflow
 
-## transfer learning
-$ES_HOME/deep-learning-labs/transfer-learning
 
 ## Readme and setup docs
 $ES_HOME/deep-learning-labs/README.ipynb
