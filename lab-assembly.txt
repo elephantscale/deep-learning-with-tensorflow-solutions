@@ -10,6 +10,8 @@ computer-vision
 lab-template.ipynb
 metrics
 my_utils.py
+image_utils.py
+transfer_learning_utils.py
 regressions
 rnn
 tensorflow
