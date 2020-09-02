@@ -18,5 +18,5 @@ __pycache__
 data
 
 *.h5
-archived
+#archived
 

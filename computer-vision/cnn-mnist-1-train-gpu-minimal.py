@@ -21,6 +21,7 @@ os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'  # or any {'0', '1', '2'}
 import tensorflow as tf
 tf.get_logger().setLevel('WARN')
 from tensorflow import keras
+print (tf.config.experimental.list_physical_devices())
 
 ## ---- start Memory setting ----
 ## Ask TF not to allocate all GPU memory at once.. allocate as needed

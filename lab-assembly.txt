@@ -20,7 +20,6 @@ tensorflow
 ## Readme and setup docs
 $ES_HOME/deep-learning-labs/README.ipynb
 $ES_HOME/deep-learning-labs/setup-local-native.ipynb
-$ES_HOME/deep-learning-labs/setup-local-docker.ipynb
 $ES_HOME/deep-learning-labs/setup-cloud-vm.ipynb
 
 ##python basics
@@ -29,7 +28,7 @@ $ES_HOME/python-labs-solutions/python-basics
 
 
 ## Google Colab
-$ES_HOME/python-labs/google-colab.ipynb
+$ES_HOME/python-labs/notebooks/google-colab.ipynb  google-colab/google-colab.ipynb
 $ES_HOME/python-labs/assets/images/google-colab-1.png  assets/images/
 $ES_HOME/python-labs/assets/images/google-colab-2.png  assets/images/
 $ES_HOME/python-labs/assets/images/google-colab-3.png  assets/images/
