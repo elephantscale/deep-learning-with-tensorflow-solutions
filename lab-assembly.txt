@@ -18,9 +18,9 @@ tensorflow
 
 
 ## Readme and setup docs
-$ES_HOME/deep-learning-labs/README.ipynb
-$ES_HOME/deep-learning-labs/setup-local-native.ipynb
-$ES_HOME/deep-learning-labs/setup-cloud-vm.ipynb
+$ES_HOME/deep-learning-with-tensorflow-labs/README.ipynb
+$ES_HOME/deep-learning-with-tensorflow-labs/setup-local-native.ipynb
+$ES_HOME/deep-learning-with-tensorflow-labs/setup-cloud-vm.ipynb
 
 ##python basics
 $ES_HOME/python-labs/0-testing
