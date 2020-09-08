@@ -26,6 +26,8 @@ $ES_HOME/deep-learning-with-tensorflow-labs/setup-cloud-vm.ipynb
 $ES_HOME/python-labs/0-testing
 $ES_HOME/python-labs-solutions/python-basics
 
+# data
+$ES_HOME/ml-labs-python/data.ipynb
 
 ## Google Colab
 $ES_HOME/python-labs/notebooks/google-colab.ipynb  google-colab/google-colab.ipynb
