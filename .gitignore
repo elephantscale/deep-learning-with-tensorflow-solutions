@@ -16,6 +16,7 @@ target
 .ipynb_checkpoints
 __pycache__
 data
+*.tsv
 
 *.h5
 #archived

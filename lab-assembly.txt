@@ -15,6 +15,7 @@ transfer_learning_utils.py
 regressions
 rnn
 tensorflow
+tf-gpu.ipynb
 
 
 ## Readme and setup docs
