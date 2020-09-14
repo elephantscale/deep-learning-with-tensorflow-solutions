@@ -3,19 +3,20 @@
 
 ## from here
 
+#docs
 assets
+callbacks
 classifications
 computer-vision
-#docs
+image_utils.py
 lab-template.ipynb
 metrics
 my_utils.py
-image_utils.py
-transfer_learning_utils.py
 regressions
 rnn
 tensorflow
 tf-gpu.ipynb
+transfer_learning_utils.py
 
 
 ## Readme and setup docs
@@ -28,7 +29,7 @@ $ES_HOME/python-labs/0-testing
 $ES_HOME/python-labs-solutions/python-basics
 
 # data
-$ES_HOME/ml-labs-python/data.ipynb
+$ES_HOME/deep-learning-with-tensorflow-labs/data.ipynb
 
 ## Google Colab
 $ES_HOME/python-labs/notebooks/google-colab.ipynb  google-colab/google-colab.ipynb
